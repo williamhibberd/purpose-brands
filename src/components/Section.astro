@@ -1,0 +1,53 @@
+---
+interface Props {
+  tone?: 'light' | 'dark' | 'alt';
+  id?: string;
+  class?: string;
+  bleed?: boolean;
+}
+
+const { tone = 'light', id, class: className, bleed = false } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={['section', `section--${tone}`, bleed && 'section--bleed', className]}
+>
+  {bleed ? (
+    <slot />
+  ) : (
+    <div class="container-site">
+      <slot />
+    </div>
+  )}
+</section>
+
+<style>
+  .section {
+    padding-block: var(--spacing-section);
+  }
+
+  .section--dark {
+    background: var(--color-surface-dark);
+    color: var(--color-surface);
+  }
+
+  .section--dark :global(h1),
+  .section--dark :global(h2),
+  .section--dark :global(h3),
+  .section--dark :global(h4) {
+    color: var(--color-surface);
+  }
+
+  .section--dark :global(.eyebrow) {
+    color: rgba(250, 250, 247, 0.6);
+  }
+
+  .section--alt {
+    background: var(--color-surface-alt);
+  }
+
+  .section--bleed {
+    padding: 0;
+  }
+</style>

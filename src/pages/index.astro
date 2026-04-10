@@ -1,17 +1,257 @@
 ---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import NumberedList from '../components/NumberedList.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import { bookCallHref, contact } from '../config';
 
+const caseStudies = (await getCollection('case-studies', (c) => c.data.featured)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const testimonials = (await getCollection('testimonials', (t) => t.data.featured)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const whyUs = [
+  {
+    body: "Amazon is all we do. We don't spread ourselves across five platforms. Your Amazon account gets our full attention.",
+  },
+  {
+    body: "You work with the founders. Not a junior account manager. Not a project coordinator. The people who've built and scaled brands on Amazon — that's who runs your account.",
+  },
+  {
+    body: "We know your category. Food, drink, and wellness is what we've done for 15+ years. We understand your margins, your competition, and what actually moves the needle.",
+  },
+];
+
+const services = [
+  {
+    title: 'Amazon Account Management',
+    body: 'We run your Amazon account day-to-day — Vendor or Seller, UK or global. Weekly updates, monthly reporting, compliance sorted. Think of us as your in-house Amazon team, without the overhead.',
+  },
+  {
+    title: 'PPC & Amazon Advertising',
+    body: "We make your ad budget work harder. Sponsored Products, Brands, Display, video — managed and optimised by people who've been doing this for years, not an algorithm left to run.",
+  },
+  {
+    title: 'Brand Storefront & Content',
+    body: 'Your Amazon presence should look as good as your brand does everywhere else. We design storefronts, create A+ content, and build product pages that convert browsers into buyers.',
+  },
+  {
+    title: 'SEO & Listing Optimisation',
+    body: 'Getting found is half the battle. We optimise your titles, bullets, back-end keywords, and images so your products rank where they should — and convert when they get there.',
+  },
+];
+
+const ours = [
+  'Amazon is all we do. Your account gets our full, undivided attention.',
+  'You work directly with Phoebe and Biraj — 15+ years experience, Moët Hennessy, Heineken, and a 7-figure Amazon exit.',
+  'We specialise in food, drink, and wellness. We know your margins, your category, and your competition.',
+  'SAS Ocean Network member. We care about the brands we work with and the world they operate in.',
+  'We treat your brand like our own — not just another line on a spreadsheet.',
+];
+
+const theirs = [
+  'Spread across Amazon, TikTok, Meta, Google, email — your account is one of many priorities.',
+  'You talk to the founders during the pitch. Then you get handed to juniors you’ve never met.',
+  'Amazon is just another vertical. They don’t understand FMCG, premium pricing, or drinks.',
+  'No skin in the game beyond their monthly retainer.',
+  'Same playbook for every client, regardless of category or brand.',
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base surface="dark">
+  {/* Hero */}
+  <section class="hero">
+    <div class="container-site hero__inner">
+      <p class="eyebrow hero__eyebrow">Amazon agency · Food · Drink · Wellness</p>
+      <h1 class="hero__headline">
+        Your Amazon agency for food, drink, and wellness brands.
+      </h1>
+      <p class="hero__sub">
+        We manage your Amazon account, grow your sales, and protect your brand —
+        with the same people, every single day. No juniors. No handoffs. Just results.
+      </p>
+      <div class="hero__actions">
+        <Button href={bookCallHref} variant="primary" size="lg">Book a free call</Button>
+        <Button href="/work" variant="ghost">See our work →</Button>
+      </div>
+      <p class="hero__contact">
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        <span aria-hidden="true">·</span>
+        <a href={contact.phoneHref}>{contact.phone}</a>
+      </p>
+    </div>
+  </section>
+
+  {/* Logo strip */}
+  <div class="container-site">
+    <LogoStrip />
+  </div>
+
+  {/* Why us */}
+  <Section tone="dark">
+    <div class="section-head">
+      <p class="eyebrow">Why us</p>
+      <h2>Three reasons brands stay.</h2>
+    </div>
+    <NumberedList items={whyUs} columns={3} />
+  </Section>
+
+  {/* Services */}
+  <Section tone="dark">
+    <div class="section-head">
+      <p class="eyebrow">What we do</p>
+      <h2>Four things, done properly.</h2>
+    </div>
+    <NumberedList items={services} columns={4} />
+  </Section>
+
+  {/* Case studies */}
+  <Section tone="dark">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow">Selected work</p>
+        <h2>Brands we’ve grown.</h2>
+      </div>
+      <Button href="/work" variant="secondary">All case studies →</Button>
+    </div>
+    <div class="case-grid">
+      {caseStudies.map((c) => (
+        <CaseStudyCard
+          href={`/work/${c.id}`}
+          brand={c.data.brand}
+          headline={c.data.headline}
+        />
+      ))}
+    </div>
+  </Section>
+
+  {/* Testimonials */}
+  <Section tone="dark">
+    <div class="section-head">
+      <p class="eyebrow">In their words</p>
+      <h2>What our clients say.</h2>
+    </div>
+    <div class="testimonial-grid">
+      {testimonials.map((t) => (
+        <TestimonialCard
+          quote={t.data.quote}
+          author={t.data.author}
+          title={t.data.title}
+        />
+      ))}
+    </div>
+  </Section>
+
+  {/* What sets us apart */}
+  <Section tone="dark">
+    <div class="section-head">
+      <p class="eyebrow">What sets us apart</p>
+      <h2>Us. Versus everyone else.</h2>
+    </div>
+    <ComparisonTable ours={ours} theirs={theirs} />
+  </Section>
+
+  {/* Bottom CTA */}
+  <Section tone="dark">
+    <CtaBlock />
+  </Section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(6rem, 10vw, 12rem) clamp(4rem, 6vw, 6rem);
+  }
+
+  .hero__eyebrow {
+    margin: 0 0 2rem;
+  }
+
+  .hero__headline {
+    max-width: 18ch;
+    text-wrap: balance;
+    margin: 0 0 2rem;
+  }
+
+  .hero__sub {
+    max-width: 58ch;
+    font-size: 1.125rem;
+    line-height: 1.55;
+    color: rgba(250, 250, 247, 0.75);
+    margin: 0 0 3rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  .hero__contact {
+    font-size: 0.9375rem;
+    color: rgba(250, 250, 247, 0.6);
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 0;
+  }
+
+  .hero__contact a:hover {
+    color: var(--color-surface);
+  }
+
+  .section-head {
+    margin-bottom: 4rem;
+    max-width: 42rem;
+  }
+
+  .section-head--split {
+    max-width: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: end;
+    justify-content: space-between;
+  }
+
+  .section-head .eyebrow {
+    margin: 0 0 1rem;
+  }
+
+  .section-head h2 {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .case-grid {
+    display: grid;
+    gap: 3rem 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .case-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .testimonial-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

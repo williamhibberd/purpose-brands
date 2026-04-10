@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+/* ---- Maax Raw ---- */
+@font-face {
+  font-family: "Maax Raw";
+  src: url("../assets/fonts/Maax Raw - Regular-205TF.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Maax Raw";
+  src: url("../assets/fonts/Maax Raw - Italic-205TF.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Maax Raw";
+  src: url("../assets/fonts/Maax Raw - Bold-205TF.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Maax Raw";
+  src: url("../assets/fonts/Maax Raw - Bold Italic-205TF.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---- Maax Mono ---- */
+@font-face {
+  font-family: "Maax Mono";
+  src: url("../assets/fonts/Maax Mono - Regular-205TF.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Maax Mono";
+  src: url("../assets/fonts/Maax Mono - Italic-205TF.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Maax Mono";
+  src: url("../assets/fonts/Maax Mono - Bold-205TF.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Maax Mono";
+  src: url("../assets/fonts/Maax Mono - Bold Italic-205TF.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@theme {
+  /* Brand palette */
+  --color-brand-purple: #7479e2;
+  --color-brand-purple-hover: #5b60d4;
+  --color-brand-purple-ink: #3e43b8;
+
+  --color-ink: #0e0e10;
+  --color-ink-mute: #3a3a40;
+  --color-surface: #fafaf7;
+  --color-surface-dark: #0e0e10;
+  --color-surface-alt: #f2f1ec;
+  --color-mute: #6b6b70;
+  --color-hairline: #e6e6e1;
+  --color-hairline-dark: #1f1f22;
+
+  /* Typography
+     - Maax Raw Bold → headlines (--font-display, used with font-weight: 700)
+     - Maax Raw Regular → body copy (--font-sans, the default)
+     - Maax Mono → buttons, credits, categorization/labels (--font-mono)
+  */
+  --font-display: "Maax Raw", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: "Maax Raw", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "Maax Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Fluid display scale */
+  --text-display-xl: clamp(3rem, 6vw + 1rem, 6.5rem);
+  --text-display-xl--line-height: 1;
+  --text-display-lg: clamp(2.25rem, 3.5vw + 1rem, 4.25rem);
+  --text-display-lg--line-height: 1.05;
+  --text-display-md: clamp(1.75rem, 2vw + 1rem, 2.75rem);
+  --text-display-md--line-height: 1.1;
+  --text-eyebrow: 0.8125rem;
+
+  /* Layout rhythm */
+  --spacing-section: clamp(4rem, 6vw + 2rem, 8rem);
+  --container-prose: 68ch;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-surface);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100svh;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  h1 {
+    font-size: var(--text-display-xl);
+    line-height: 1;
+  }
+
+  h2 {
+    font-size: var(--text-display-lg);
+    line-height: 1.05;
+  }
+
+  h3 {
+    font-size: var(--text-display-md);
+    line-height: 1.1;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-purple);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-brand-purple);
+    color: white;
+  }
+}
+
+@layer components {
+  .container-site {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-site {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--color-mute);
+  }
+
+  .surface-dark {
+    background: var(--color-surface-dark);
+    color: var(--color-surface);
+  }
+
+  .surface-dark h1,
+  .surface-dark h2,
+  .surface-dark h3,
+  .surface-dark h4 {
+    color: var(--color-surface);
+  }
+
+  .surface-dark .eyebrow {
+    color: rgba(250, 250, 247, 0.6);
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--color-brand-purple);
+    color: white;
+    z-index: 100;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+}

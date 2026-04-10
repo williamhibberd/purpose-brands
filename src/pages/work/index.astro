@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import CaseStudyLong from '../../components/CaseStudyLong.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+
+const caseStudies = (await getCollection('case-studies')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Base
+  surface="dark"
+  title="Work"
+  description="Selected Amazon case studies from food, drink, and wellness brands we've grown with Purpose Brands."
+>
+  <Section tone="dark">
+    <div class="work-head">
+      <p class="eyebrow">Selected work</p>
+      <h1>Brands that stand for something, growing on Amazon.</h1>
+      <p class="work-head__sub">
+        A few of the brands we've helped scale, protect, and launch — from
+        Vendor-only invitations to full US market entry.
+      </p>
+    </div>
+
+    <div class="work-list">
+      {caseStudies.map((c, i) => (
+        <CaseStudyLong
+          brand={c.data.brand}
+          regions={c.data.regions}
+          engagement={c.data.engagement}
+          challenge={c.data.challenge}
+          whatWeDid={c.data.whatWeDid}
+          results={c.data.results}
+          pullQuote={c.data.pullQuote}
+          href={`/work/${c.id}`}
+          reverse={i % 2 === 1}
+        />
+      ))}
+    </div>
+  </Section>
+
+  <Section tone="dark">
+    <CtaBlock headline="Want to be the next one?" subtext="Book a call and let's see if we're the right fit." />
+  </Section>
+</Base>
+
+<style>
+  .work-head {
+    max-width: 42rem;
+    margin-bottom: 5rem;
+  }
+
+  .work-head h1 {
+    font-size: var(--text-display-lg);
+    margin: 1.5rem 0 2rem;
+    text-wrap: balance;
+  }
+
+  .work-head__sub {
+    font-size: 1.125rem;
+    color: rgba(250, 250, 247, 0.75);
+    max-width: 56ch;
+    margin: 0;
+  }
+
+  .work-list {
+    border-top: 1px solid var(--color-hairline-dark);
+  }
+
+  :global(.work-list .case-long) {
+    border-bottom-color: var(--color-hairline-dark);
+  }
+</style>

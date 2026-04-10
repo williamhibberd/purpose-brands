@@ -1,0 +1,92 @@
+---
+interface Item {
+  title?: string;
+  body: string;
+}
+
+interface Props {
+  items: Item[];
+  columns?: 2 | 3 | 4;
+}
+
+const { items, columns = 3 } = Astro.props;
+---
+
+<ol class:list={['numbered-list', `numbered-list--cols-${columns}`]}>
+  {items.map((item, i) => (
+    <li class="numbered-list__item">
+      <span class="numbered-list__num" aria-hidden="true">
+        {String(i + 1).padStart(2, '0')}
+      </span>
+      {item.title && <h3 class="numbered-list__title">{item.title}</h3>}
+      <p class="numbered-list__body">{item.body}</p>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .numbered-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 3rem;
+    counter-reset: none;
+  }
+
+  @media (min-width: 768px) {
+    .numbered-list--cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem 3rem;
+    }
+
+    .numbered-list--cols-4 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4rem 3rem;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .numbered-list--cols-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .numbered-list__item {
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-hairline);
+    position: relative;
+  }
+
+  :global(.section--dark) .numbered-list__item {
+    border-top-color: var(--color-hairline-dark);
+  }
+
+  .numbered-list__num {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-brand-purple);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.04em;
+  }
+
+  .numbered-list__title {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+
+  .numbered-list__body {
+    color: var(--color-ink-mute);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 42ch;
+  }
+
+  :global(.section--dark) .numbered-list__body {
+    color: rgba(250, 250, 247, 0.7);
+  }
+</style>

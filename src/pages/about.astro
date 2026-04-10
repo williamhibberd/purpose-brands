@@ -1,0 +1,208 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+---
+
+<Base
+  surface="dark"
+  title="About"
+  description="We started Purpose Brands because brilliant food, drink, and wellness brands deserve better than a spreadsheet-driven Amazon agency."
+>
+  {/* Intro */}
+  <Section tone="dark">
+    <div class="about-intro">
+      <p class="eyebrow">About</p>
+      <h1>We built the Amazon agency we wished existed.</h1>
+      <div class="about-intro__body">
+        <p>
+          We started Purpose Brands because we kept seeing the same thing:
+          brilliant brands with amazing products, getting a raw deal from Amazon
+          agencies that didn't understand their world. Agencies that treated them
+          like just another account. That spread themselves across every platform
+          and gave nobody their full attention.
+        </p>
+        <p>
+          We've spent 15+ years in food, drink, and wellness — from Moët Hennessy
+          to indie kombucha brands. We know the margins are tight, Amazon can feel
+          like a black box, and getting it right can genuinely transform your
+          business. So we built the agency we wished existed.
+        </p>
+        <p>
+          We called it Purpose Brands because we wanted to work with people who
+          are building something that matters. And we're a Surfers Against Sewage
+          Ocean Network member because we're based on the South Devon coast and
+          protecting our waters isn't abstract for us — it's personal.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  {/* Phoebe */}
+  <Section tone="dark">
+    <article class="bio">
+      <div class="bio__image" aria-hidden="true">
+        <span>Phoebe</span>
+      </div>
+      <div class="bio__body">
+        <p class="eyebrow">Founder</p>
+        <h2>Phoebe Bocchinelli</h2>
+        <p class="bio__lede">
+          I've spent 15 years in consumer brands — ecommerce, sales, and marketing
+          — with 6 of those specifically on Amazon Vendor and Seller across the UK
+          and US.
+        </p>
+        <p>
+          Before starting Purpose Brands, I worked with Moët Hennessy, Belvedere
+          Vodka, Veuve Clicquot, and Heineken. I started this agency because I saw
+          too many great brands being let down by agencies that didn't get their
+          category. I'm based in South Devon, happiest near the sea, and I believe
+          the best brands are the ones that stand for something.
+        </p>
+        <ul class="bio__trust" aria-label="Brands Phoebe has worked with">
+          <li>Moët Hennessy</li>
+          <li>Heineken</li>
+          <li>Veuve Clicquot</li>
+          <li>Belvedere Vodka</li>
+        </ul>
+      </div>
+    </article>
+  </Section>
+
+  {/* Biraj */}
+  <Section tone="dark">
+    <article class="bio bio--reverse">
+      <div class="bio__image" aria-hidden="true">
+        <span>Biraj</span>
+      </div>
+      <div class="bio__body">
+        <p class="eyebrow">Co-founder</p>
+        <h2>Biraj Parmar</h2>
+        <p class="bio__lede">
+          8+ years in Amazon, Shopify, and ecommerce — from operations and
+          strategy to PPC and SEO.
+        </p>
+        <p>
+          I built my own Amazon and D2C business from scratch and sold it for
+          seven figures in 2021 to Heroes Technology, then stayed on as an
+          internal brand consultant. I've been on every side of Amazon — as a
+          seller, a brand owner, and now as someone who helps other brands win. I
+          know what works because I've done it myself.
+        </p>
+        <ul class="bio__trust" aria-label="Brands Biraj has worked with">
+          <li>Heroes Technology</li>
+          <li>Sports Laboratory</li>
+        </ul>
+      </div>
+    </article>
+  </Section>
+
+  {/* Bottom CTA */}
+  <Section tone="dark">
+    <CtaBlock />
+  </Section>
+</Base>
+
+<style>
+  .about-intro {
+    max-width: 56rem;
+  }
+
+  .about-intro h1 {
+    font-size: var(--text-display-lg);
+    max-width: 18ch;
+    margin: 2rem 0 3rem;
+    text-wrap: balance;
+  }
+
+  .about-intro__body {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 60ch;
+  }
+
+  .about-intro__body p {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: rgba(250, 250, 247, 0.78);
+    margin: 0;
+  }
+
+  .bio {
+    display: grid;
+    gap: 3rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--color-hairline-dark);
+  }
+
+  @media (min-width: 900px) {
+    .bio {
+      grid-template-columns: 5fr 7fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .bio--reverse .bio__image {
+      order: 2;
+    }
+  }
+
+  .bio__image {
+    aspect-ratio: 3 / 4;
+    background: rgba(250, 250, 247, 0.04);
+    border: 1px solid var(--color-hairline-dark);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 420px;
+  }
+
+  .bio__image span {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2rem;
+    color: rgba(250, 250, 247, 0.35);
+  }
+
+  .bio__body h2 {
+    margin: 1rem 0 2rem;
+  }
+
+  .bio__lede {
+    font-size: 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.5rem;
+    max-width: 38ch;
+  }
+
+  .bio__body > p {
+    color: rgba(250, 250, 247, 0.75);
+    line-height: 1.65;
+    max-width: 60ch;
+  }
+
+  .bio__trust {
+    list-style: none;
+    padding: 2rem 0 0;
+    margin: 2rem 0 0;
+    border-top: 1px solid var(--color-hairline-dark);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem 1rem;
+  }
+
+  .bio__trust li {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(250, 250, 247, 0.7);
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--color-hairline-dark);
+    border-radius: 999px;
+  }
+</style>

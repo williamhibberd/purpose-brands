@@ -1,0 +1,241 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+
+export async function getStaticPaths() {
+  const entries = (await getCollection('case-studies')).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  return entries.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      prev: entries[i - 1] ?? null,
+      next: entries[i + 1] ?? null,
+    },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'case-studies'>;
+  prev: CollectionEntry<'case-studies'> | null;
+  next: CollectionEntry<'case-studies'> | null;
+}
+
+const { entry, prev, next } = Astro.props;
+const c = entry.data;
+---
+
+<Base surface="dark" title={c.title} description={c.headline}>
+  <article>
+    <Section tone="dark">
+      <a href="/work" class="back-link">← All work</a>
+
+      <header class="cs-header">
+        <p class="eyebrow">{c.regions.join(' · ')}</p>
+        <h1>{c.title}</h1>
+        <p class="cs-header__headline">{c.headline}</p>
+        <p class="cs-header__meta">{c.engagement}</p>
+      </header>
+
+      <div class="cs-hero" aria-hidden="true">
+        <span>{c.brand}</span>
+      </div>
+    </Section>
+
+    <Section tone="dark">
+      <div class="cs-body">
+        <div class="cs-block">
+          <h2>The challenge</h2>
+          <p>{c.challenge}</p>
+        </div>
+
+        <div class="cs-block">
+          <h2>What we did</h2>
+          <p>{c.whatWeDid}</p>
+        </div>
+
+        <div class="cs-block">
+          <h2>The results</h2>
+          <ul>
+            {c.results.map((r) => <li>{r}</li>)}
+          </ul>
+        </div>
+
+        {c.pullQuote && (
+          <blockquote class="cs-quote">
+            <p>“{c.pullQuote.quote}”</p>
+            <cite>— {c.pullQuote.author}</cite>
+          </blockquote>
+        )}
+      </div>
+    </Section>
+
+    {(prev || next) && (
+      <Section tone="dark">
+        <nav class="cs-pager" aria-label="Case study navigation">
+          {prev ? (
+            <a href={`/work/${prev.id}`} class="cs-pager__link">
+              <span class="eyebrow">Previous</span>
+              <span class="cs-pager__title">← {prev.data.brand}</span>
+            </a>
+          ) : <span></span>}
+          {next && (
+            <a href={`/work/${next.id}`} class="cs-pager__link cs-pager__link--end">
+              <span class="eyebrow">Next</span>
+              <span class="cs-pager__title">{next.data.brand} →</span>
+            </a>
+          )}
+        </nav>
+      </Section>
+    )}
+
+    <Section tone="dark">
+      <CtaBlock />
+    </Section>
+  </article>
+</Base>
+
+<style>
+  .back-link {
+    display: inline-block;
+    margin-bottom: 3rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: rgba(250, 250, 247, 0.6);
+  }
+  .back-link:hover {
+    color: var(--color-surface);
+  }
+
+  .cs-header {
+    max-width: 48rem;
+    margin-bottom: 4rem;
+  }
+
+  .cs-header h1 {
+    font-size: var(--text-display-lg);
+    margin: 1.5rem 0 1.5rem;
+  }
+
+  .cs-header__headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: rgba(250, 250, 247, 0.85);
+    max-width: 38ch;
+    margin: 0 0 2rem;
+  }
+
+  .cs-header__meta {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: rgba(250, 250, 247, 0.55);
+    margin: 0;
+  }
+
+  .cs-hero {
+    aspect-ratio: 21 / 9;
+    background: rgba(250, 250, 247, 0.04);
+    border: 1px solid var(--color-hairline-dark);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cs-hero span {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 3rem;
+    color: rgba(250, 250, 247, 0.3);
+  }
+
+  .cs-body {
+    max-width: 44rem;
+    display: grid;
+    gap: 3rem;
+  }
+
+  .cs-block h2 {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--color-brand-purple);
+    margin: 0 0 1rem;
+  }
+
+  .cs-block p,
+  .cs-block li {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: rgba(250, 250, 247, 0.82);
+    margin: 0;
+  }
+
+  .cs-block ul {
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  .cs-quote {
+    margin: 1rem 0 0;
+    padding: 2rem 0 0;
+    border-top: 1px solid var(--color-hairline-dark);
+  }
+
+  .cs-quote p {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.75rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin: 0 0 1rem;
+    color: var(--color-surface);
+  }
+
+  .cs-quote cite {
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 0.8125rem;
+    color: rgba(250, 250, 247, 0.55);
+  }
+
+  .cs-pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--color-hairline-dark);
+  }
+
+  .cs-pager__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cs-pager__link--end {
+    text-align: right;
+  }
+
+  .cs-pager__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    color: var(--color-surface);
+  }
+
+  .cs-pager__link:hover .cs-pager__title {
+    color: var(--color-brand-purple);
+  }
+</style>

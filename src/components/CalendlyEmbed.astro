@@ -1,0 +1,61 @@
+---
+import { contact } from '../config';
+
+const url = contact.calendly;
+---
+
+{url ? (
+  <div class="calendly">
+    <iframe
+      src={url}
+      title="Book a call with Purpose Brands"
+      loading="lazy"
+    ></iframe>
+  </div>
+) : (
+  <div class="calendly calendly--placeholder">
+    <p>
+      <strong>Calendly embed coming soon.</strong><br />
+      Phoebe is finalising the booking link — in the meantime, drop us a line
+      at <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+    </p>
+  </div>
+)}
+
+<style>
+  .calendly {
+    border: 1px solid var(--color-hairline);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--color-surface);
+    min-height: 680px;
+  }
+
+  .calendly iframe {
+    width: 100%;
+    height: 680px;
+    border: none;
+    display: block;
+  }
+
+  .calendly--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 3rem;
+    text-align: center;
+    background: var(--color-surface-alt);
+  }
+
+  .calendly--placeholder p {
+    color: var(--color-ink-mute);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .calendly--placeholder a {
+    color: var(--color-brand-purple);
+    text-decoration: underline;
+  }
+</style>

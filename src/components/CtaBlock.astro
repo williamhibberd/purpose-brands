@@ -1,0 +1,75 @@
+---
+import Button from './Button.astro';
+import { contact, bookCallHref } from '../config';
+
+interface Props {
+  headline?: string;
+  subtext?: string;
+}
+
+const {
+  headline = 'Your brand deserves better on Amazon. Let’s make it happen.',
+  subtext = 'We work with brands that stand for something. It’s kind of in the name.',
+} = Astro.props;
+---
+
+<div class="cta-block">
+  <h2 class="cta-block__headline">{headline}</h2>
+  <p class="cta-block__subtext">{subtext}</p>
+  <div class="cta-block__actions">
+    <Button href={bookCallHref} variant="primary" size="lg">Book a free call</Button>
+  </div>
+  <p class="cta-block__contact">
+    <a href={`mailto:${contact.email}`}>{contact.email}</a>
+    <span aria-hidden="true">·</span>
+    <a href={contact.phoneHref}>{contact.phone}</a>
+  </p>
+</div>
+
+<style>
+  .cta-block {
+    text-align: center;
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  .cta-block__headline {
+    font-size: var(--text-display-lg);
+    line-height: 1.05;
+    margin: 0 0 1.5rem;
+    text-wrap: balance;
+  }
+
+  .cta-block__subtext {
+    font-size: 1.125rem;
+    color: var(--color-ink-mute);
+    margin: 0 0 2.5rem;
+    max-width: 38ch;
+    margin-inline: auto;
+  }
+
+  :global(.section--dark) .cta-block__subtext {
+    color: rgba(250, 250, 247, 0.7);
+  }
+
+  .cta-block__actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-block__contact {
+    font-size: 0.9375rem;
+    color: var(--color-mute);
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 0;
+  }
+
+  .cta-block__contact a:hover {
+    color: var(--color-brand-purple);
+  }
+</style>

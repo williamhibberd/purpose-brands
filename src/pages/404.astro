@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+---
+
+<Base surface="dark" title="Not found" noindex>
+  <section class="notfound">
+    <div class="container-site">
+      <p class="eyebrow">404</p>
+      <h1>We couldn't find that page.</h1>
+      <p class="notfound__sub">
+        It may have moved, or it never existed. Either way — nothing to see here.
+      </p>
+      <div class="notfound__actions">
+        <Button href="/" variant="primary" size="lg">Back to home</Button>
+        <Button href="/work" variant="ghost">See our work →</Button>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notfound {
+    padding-block: clamp(6rem, 12vw, 12rem);
+  }
+
+  .notfound h1 {
+    font-size: var(--text-display-lg);
+    max-width: 20ch;
+    margin: 1.5rem 0 1.5rem;
+  }
+
+  .notfound__sub {
+    font-size: 1.125rem;
+    color: rgba(250, 250, 247, 0.7);
+    margin: 0 0 3rem;
+    max-width: 48ch;
+  }
+
+  .notfound__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    align-items: center;
+  }
+</style>

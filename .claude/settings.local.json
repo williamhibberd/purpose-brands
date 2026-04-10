@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp:*)",
+      "Read(//private/tmp/**)",
+      "Bash(unzip -o -q /Users/wrhibberd/localdev/purpose-brands/docs/Purpose_Brands_Build_Brief.docx -d pb_brief_extract)",
+      "WebFetch(domain:elevatefmcg.com)",
+      "Bash(curl -sL https://elevatefmcg.com -A \"Mozilla/5.0\")",
+      "mcp__claude_ai_Figma__get_design_context",
+      "mcp__claude_ai_Figma__get_metadata",
+      "Bash(npm install:*)",
+      "Bash(npx astro:*)",
+      "Bash(npm uninstall:*)"
+    ]
+  }
+}

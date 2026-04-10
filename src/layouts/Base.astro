@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+import { SEO } from 'astro-seo';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import { site, ga4MeasurementId } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  surface?: 'light' | 'dark';
+}
+
+const {
+  title,
+  description = site.description,
+  ogImage = '/og-default.png',
+  noindex = false,
+  surface = 'light',
+} = Astro.props;
+
+const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.tagline}`;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonical} />
+    <SEO
+      title={fullTitle}
+      description={description}
+      canonical={canonical}
+      noindex={noindex}
+      openGraph={{
+        basic: {
+          title: fullTitle,
+          type: 'website',
+          image: new URL(ogImage, site.url).toString(),
+          url: canonical,
+        },
+        optional: {
+          description,
+          siteName: site.name,
+        },
+        image: {
+          alt: site.name,
+        },
+      }}
+      twitter={{ card: 'summary_large_image' }}
+    />
+  </head>
+  <body class:list={[surface === 'dark' && 'surface-dark']}>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <CookieBanner />
+
+    {ga4MeasurementId && (
+      <script is:inline define:vars={{ gaId: ga4MeasurementId }}>
+        function loadGa(id) {
+          if (window.__gaLoaded) return;
+          window.__gaLoaded = true;
+          const s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', id, { anonymize_ip: true });
+        }
+        if (localStorage.getItem('pb_consent') === 'granted') {
+          loadGa(gaId);
+        }
+        window.addEventListener('pb:consent-granted', () => loadGa(gaId));
+      </script>
+    )}
+  </body>
+</html>

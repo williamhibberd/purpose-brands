@@ -1,0 +1,105 @@
+---
+import { clientLogos } from '../config';
+
+interface Props {
+  label?: string;
+}
+
+const { label = 'Trusted by brands who stand for something' } = Astro.props;
+
+// Duplicate list for seamless marquee loop
+const logos = [...clientLogos, ...clientLogos];
+---
+
+<div class="logo-strip">
+  <p class="logo-strip__label eyebrow">{label}</p>
+  <div class="logo-strip__track-wrap">
+    <ul class="logo-strip__track" aria-label="Client logos">
+      {logos.map((logo, i) => (
+        <li class="logo-strip__item" aria-hidden={i >= clientLogos.length ? 'true' : undefined}>
+          <span class="logo-strip__placeholder">{logo.name}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .logo-strip {
+    padding-block: 4rem;
+    border-block: 1px solid var(--color-hairline);
+  }
+
+  :global(.section--dark) .logo-strip {
+    border-color: var(--color-hairline-dark);
+  }
+
+  .logo-strip__label {
+    text-align: center;
+    margin: 0 0 2.5rem;
+  }
+
+  .logo-strip__track-wrap {
+    overflow: hidden;
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+  }
+
+  .logo-strip__track {
+    display: flex;
+    gap: 4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: max-content;
+    animation: marquee 60s linear infinite;
+  }
+
+  .logo-strip__track:hover {
+    animation-play-state: paused;
+  }
+
+  .logo-strip__item {
+    flex-shrink: 0;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-strip__placeholder {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-ink-mute);
+    white-space: nowrap;
+    opacity: 0.6;
+    letter-spacing: -0.01em;
+  }
+
+  :global(.section--dark) .logo-strip__placeholder {
+    color: rgba(250, 250, 247, 0.6);
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-strip__track {
+      animation: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+</style>
