@@ -33,6 +33,13 @@ const c = entry.data;
     <Section tone="dark">
       <a href="/work" class="back-link">← All work</a>
 
+      {c.heroStat && (
+        <div class="cs-hero-stat">
+          <span class="cs-hero-stat__value">{c.heroStat.value}</span>
+          <span class="cs-hero-stat__label">{c.heroStat.label}</span>
+        </div>
+      )}
+
       <header class="cs-header">
         <p class="eyebrow">{c.regions.join(' · ')}</p>
         <h1>{c.title}</h1>
@@ -48,7 +55,7 @@ const c = entry.data;
     <Section tone="dark">
       <div class="cs-body">
         <div class="cs-block">
-          <h2>The challenge</h2>
+          <h2>The situation</h2>
           <p>{c.challenge}</p>
         </div>
 
@@ -99,6 +106,30 @@ const c = entry.data;
 </Base>
 
 <style>
+  .cs-hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .cs-hero-stat__value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-display-xl);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-brand-purple);
+  }
+
+  .cs-hero-stat__label {
+    font-family: var(--font-mono);
+    font-size: var(--text-eyebrow);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(250, 250, 247, 0.6);
+  }
+
   .back-link {
     display: inline-block;
     margin-bottom: 3rem;

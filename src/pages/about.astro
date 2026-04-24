@@ -13,26 +13,19 @@ import CtaBlock from '../components/CtaBlock.astro';
   <Section tone="dark">
     <div class="about-intro">
       <p class="eyebrow">About</p>
-      <h1>We built the Amazon agency we wished existed.</h1>
+      <h1>We built the agency we wished existed.</h1>
       <div class="about-intro__body">
         <p>
-          We started Purpose Brands because we kept seeing the same thing:
-          brilliant brands with amazing products, getting a raw deal from Amazon
-          agencies that didn't understand their world. Agencies that treated them
-          like just another account. That spread themselves across every platform
-          and gave nobody their full attention.
+          Every Amazon agency we met was either a massive machine that forgot your
+          name after the pitch, or a one-person show making it up as they went.
         </p>
         <p>
-          We've spent 15+ years in food, drink, and wellness — from Moët Hennessy
-          to indie kombucha brands. We know the margins are tight, Amazon can feel
-          like a black box, and getting it right can genuinely transform your
-          business. So we built the agency we wished existed.
+          So we built something different. Two people. Senior from day one. Only
+          food, drink, and wellness. Only Amazon.
         </p>
         <p>
           We called it Purpose Brands because we wanted to work with people who
-          are building something that matters. And we're a Surfers Against Sewage
-          Ocean Network member because we're based on the South Devon coast and
-          protecting our waters isn't abstract for us — it's personal.
+          are building something that actually matters. Not just selling units.
         </p>
       </div>
     </div>
@@ -48,16 +41,15 @@ import CtaBlock from '../components/CtaBlock.astro';
         <p class="eyebrow">Founder</p>
         <h2>Phoebe Bocchinelli</h2>
         <p class="bio__lede">
-          I've spent 15 years in consumer brands — ecommerce, sales, and marketing
-          — with 6 of those specifically on Amazon Vendor and Seller across the UK
-          and US.
+          15 years in consumer brands. Worked with Moët Hennessy, Veuve Clicquot,
+          Heineken, and Belvedere Vodka. 6 of those years specifically on Amazon
+          across the UK and US.
         </p>
         <p>
-          Before starting Purpose Brands, I worked with Moët Hennessy, Belvedere
-          Vodka, Veuve Clicquot, and Heineken. I started this agency because I saw
-          too many great brands being let down by agencies that didn't get their
-          category. I'm based in South Devon, happiest near the sea, and I believe
-          the best brands are the ones that stand for something.
+          Started Purpose Brands because too many great brands were getting a raw
+          deal from agencies that didn't understand their world. Based on the South
+          Devon coast. Happiest near the sea. Will always be honest with you, even
+          when it's not what you want to hear.
         </p>
         <ul class="bio__trust" aria-label="Brands Phoebe has worked with">
           <li>Moët Hennessy</li>
@@ -79,15 +71,14 @@ import CtaBlock from '../components/CtaBlock.astro';
         <p class="eyebrow">Co-founder</p>
         <h2>Biraj Parmar</h2>
         <p class="bio__lede">
-          8+ years in Amazon, Shopify, and ecommerce — from operations and
-          strategy to PPC and SEO.
+          Built an Amazon and D2C brand from scratch. Sold it for seven figures
+          in 2021. Stayed on as a brand consultant because he couldn't stop
+          tinkering.
         </p>
         <p>
-          I built my own Amazon and D2C business from scratch and sold it for
-          seven figures in 2021 to Heroes Technology, then stayed on as an
-          internal brand consultant. I've been on every side of Amazon — as a
-          seller, a brand owner, and now as someone who helps other brands win. I
-          know what works because I've done it myself.
+          Has been a seller, a brand owner, an internal consultant, and now the
+          person helping your brand win. Knows what works because he's done it
+          himself — not because he read a playbook.
         </p>
         <ul class="bio__trust" aria-label="Brands Biraj has worked with">
           <li>Heroes Technology</li>
@@ -95,6 +86,16 @@ import CtaBlock from '../components/CtaBlock.astro';
         </ul>
       </div>
     </article>
+  </Section>
+
+  {/* SAS */}
+  <Section tone="dark">
+    <div class="sas">
+      <p>
+        We're a Surfers Against Sewage Ocean Network member. We live on the South
+        Devon coast. Protecting our waters isn't a CSR box-tick — it's personal.
+      </p>
+    </div>
   </Section>
 
   {/* Bottom CTA */}
@@ -204,5 +205,18 @@ import CtaBlock from '../components/CtaBlock.astro';
     padding: 0.5rem 0.875rem;
     border: 1px solid var(--color-hairline-dark);
     border-radius: 999px;
+  }
+
+  .sas {
+    max-width: 48ch;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-hairline-dark);
+  }
+
+  .sas p {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: rgba(250, 250, 247, 0.75);
+    margin: 0;
   }
 </style>

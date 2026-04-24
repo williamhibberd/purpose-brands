@@ -3,11 +3,12 @@ interface Props {
   href: string;
   brand: string;
   headline: string;
+  heroStat?: { value: string; label: string };
   imageSrc?: string;
   imageAlt?: string;
 }
 
-const { href, brand, headline, imageSrc, imageAlt = '' } = Astro.props;
+const { href, brand, headline, heroStat, imageSrc, imageAlt = '' } = Astro.props;
 ---
 
 <a href={href} class="case-card">
@@ -19,6 +20,12 @@ const { href, brand, headline, imageSrc, imageAlt = '' } = Astro.props;
     )}
   </div>
   <div class="case-card__body">
+    {heroStat && (
+      <div class="case-card__stat">
+        <span class="case-card__stat-value">{heroStat.value}</span>
+        <span class="case-card__stat-label">{heroStat.label}</span>
+      </div>
+    )}
     <span class="case-card__brand eyebrow">{brand}</span>
     <p class="case-card__headline">{headline}</p>
     <span class="case-card__arrow" aria-hidden="true">Read case study →</span>
@@ -68,6 +75,30 @@ const { href, brand, headline, imageSrc, imageAlt = '' } = Astro.props;
 
   .case-card__body {
     padding: 1.5rem 0.25rem 0;
+  }
+
+  .case-card__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .case-card__stat-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-display-md);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-brand-purple);
+  }
+
+  .case-card__stat-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-eyebrow);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-mute);
   }
 
   .case-card__brand {

@@ -14,6 +14,12 @@ const caseStudies = defineCollection({
     challenge: z.string(),
     whatWeDid: z.string(),
     results: z.array(z.string()),
+    heroStat: z
+      .object({
+        value: z.string(),
+        label: z.string(),
+      })
+      .optional(),
     pullQuote: z
       .object({
         quote: z.string(),
@@ -29,6 +35,7 @@ const testimonials = defineCollection({
   schema: z.object({
     id: z.string(),
     quote: z.string(),
+    shortQuote: z.string().optional(),
     author: z.string(),
     title: z.string(),
     order: z.number(),

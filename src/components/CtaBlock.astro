@@ -1,15 +1,17 @@
 ---
 import Button from './Button.astro';
-import { contact, bookCallHref } from '../config';
+import { contact, contactBiraj, bookCallHref } from '../config';
 
 interface Props {
   headline?: string;
   subtext?: string;
+  dualCta?: boolean;
 }
 
 const {
-  headline = 'Your brand deserves better on Amazon. Let’s make it happen.',
-  subtext = 'We work with brands that stand for something. It’s kind of in the name.',
+  headline = 'Your brand\'s too good for a bad Amazon page.',
+  subtext = 'Book a free call with us. No pressure, no pitch \u2014 just a conversation about whether we\'re right for you.',
+  dualCta = false,
 } = Astro.props;
 ---
 
@@ -17,11 +19,18 @@ const {
   <h2 class="cta-block__headline">{headline}</h2>
   <p class="cta-block__subtext">{subtext}</p>
   <div class="cta-block__actions">
-    <Button href={bookCallHref} variant="primary" size="lg">Book a free call</Button>
+    {dualCta ? (
+      <>
+        <Button href={contact.phoneHref} variant="primary" size="lg">Call Phoebe</Button>
+        <Button href={contactBiraj.phoneHref} variant="secondary" size="lg">Call Biraj</Button>
+      </>
+    ) : (
+      <Button href={bookCallHref} variant="primary" size="lg">Let's talk</Button>
+    )}
   </div>
   <p class="cta-block__contact">
     <a href={`mailto:${contact.email}`}>{contact.email}</a>
-    <span aria-hidden="true">·</span>
+    <span aria-hidden="true">&middot;</span>
     <a href={contact.phoneHref}>{contact.phone}</a>
   </p>
 </div>

@@ -9,6 +9,9 @@ regions:
   - USA
 engagement: Vendor | Full account management + UK & USA NPD launch
 headline: From 50 to 400 monthly sales — while protecting a premium price point
+heroStat:
+  value: "8x"
+  label: "sales growth"
 challenge: How do you sustain a premium price point on Amazon — a platform that constantly pushes prices down?
 whatWeDid: Created a premium value proposition so customers understood exactly what they were paying for. Ran precisely targeted PPC to reach the right audience, not just anyone searching for gin.
 results:

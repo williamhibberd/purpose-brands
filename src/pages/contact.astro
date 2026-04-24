@@ -13,32 +13,22 @@ import { contact } from '../config';
   <Section tone="dark">
     <div class="contact-head">
       <p class="eyebrow">Contact</p>
-      <h1>Let's talk about your brand.</h1>
+      <h1>Fancy a chat?</h1>
       <p class="contact-head__sub">
-        Book a free 30-minute call and we'll have an honest conversation about
-        whether Amazon is the right move for your brand — and if we're the right
-        team to help. No pitch. No pressure. Just a chat.
+        30 minutes. We'll tell you honestly whether Amazon's right for your
+        brand, and if we're the right team to help.
       </p>
     </div>
 
     <div class="contact-grid">
-      {/* Left: details + form */}
+      {/* Left: Calendly */}
       <div class="contact-col">
-        <ul class="contact-details" aria-label="Contact details">
-          <li>
-            <span class="eyebrow">Email</span>
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>
-          </li>
-          <li>
-            <span class="eyebrow">Phone</span>
-            <a href={contact.phoneHref}>{contact.phone}</a>
-          </li>
-          <li>
-            <span class="eyebrow">LinkedIn</span>
-            <a href={contact.linkedin} rel="me noopener">Connect on LinkedIn</a>
-          </li>
-        </ul>
+        <p class="eyebrow contact-calendly-label">Book a time</p>
+        <CalendlyEmbed />
+      </div>
 
+      {/* Right: form + details */}
+      <div class="contact-col">
         <form
           name="contact"
           method="POST"
@@ -70,18 +60,27 @@ import { contact } from '../config';
           </div>
 
           <div class="contact-form__field">
-            <label for="message">Tell us about your brand and what you need</label>
+            <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
 
           <button type="submit" class="contact-form__submit">Send message</button>
         </form>
-      </div>
 
-      {/* Right: Calendly */}
-      <div class="contact-col">
-        <p class="eyebrow contact-calendly-label">Or book instantly</p>
-        <CalendlyEmbed />
+        <ul class="contact-details" aria-label="Contact details">
+          <li>
+            <span class="eyebrow">Email</span>
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          </li>
+          <li>
+            <span class="eyebrow">Phone</span>
+            <a href={contact.phoneHref}>{contact.phone}</a>
+          </li>
+          <li>
+            <span class="eyebrow">LinkedIn</span>
+            <a href={contact.linkedin} rel="me noopener">Connect on LinkedIn</a>
+          </li>
+        </ul>
       </div>
     </div>
   </Section>
@@ -119,9 +118,9 @@ import { contact } from '../config';
 
   .contact-details {
     list-style: none;
-    padding: 0 0 3rem;
-    margin: 0 0 3rem;
-    border-bottom: 1px solid var(--color-hairline-dark);
+    padding: 3rem 0 0;
+    margin: 3rem 0 0;
+    border-top: 1px solid var(--color-hairline-dark);
     display: grid;
     gap: 1.5rem;
   }

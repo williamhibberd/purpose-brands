@@ -24,19 +24,32 @@ Built with [Astro](https://astro.build) 6, Tailwind v4, deployed to Netlify.
 ## Project structure
 ```
 src/
-├── config.ts               # Central: contact info, nav, client logos, GA4 ID
-├── content.config.ts       # Collection schemas
+├── config.ts               # Central: contact info (Phoebe + Biraj), nav, client logos, GA4 ID
+├── content.config.ts       # Collection schemas (heroStat, shortQuote, etc.)
 ├── content/
-│   ├── case-studies/       # One .md per case study
-│   └── testimonials.json   # Testimonial list
-├── components/             # Nav, Footer, Button, Section, NumberedList, etc.
+│   ├── case-studies/       # One .md per case study (with heroStat frontmatter)
+│   └── testimonials.json   # Testimonial list (with shortQuote for homepage)
+├── components/
+│   ├── ProofBar.astro      # Stat bar: large numbers + labels
+│   ├── CtaBlock.astro      # CTA block with optional dualCta mode
+│   ├── CaseStudyCard.astro # Card with optional heroStat display
+│   ├── TestimonialCard.astro # Quote card with shortQuote support
+│   ├── Nav.astro           # Sticky header, "Let's talk" CTA
+│   ├── Footer.astro        # Site footer
+│   ├── Button.astro        # Primary/secondary/ghost variants
+│   ├── Section.astro       # Light/dark/alt tone wrapper
+│   ├── NumberedList.astro  # Numbered grid (how it works, services)
+│   ├── LogoStrip.astro     # Scrolling client logo marquee
+│   ├── CaseStudyLong.astro # Full case study card for /work listing
+│   ├── CalendlyEmbed.astro # Calendly iframe or fallback
+│   └── CookieBanner.astro  # GDPR consent, gates GA4
 ├── layouts/Base.astro      # Shared <html>, SEO, nav, footer, cookie banner
 ├── pages/
-│   ├── index.astro         # Home
-│   ├── about.astro
+│   ├── index.astro         # Home (9 sections: hero, proof bar, logos, testimonials, who we are, how it works, services, results, CTA)
+│   ├── about.astro         # Story, founder bios, SAS
 │   ├── work/index.astro    # All case studies
-│   ├── work/[slug].astro   # Individual case study
-│   ├── contact.astro
+│   ├── work/[slug].astro   # Individual case study with hero stat
+│   ├── contact.astro       # Calendly + form
 │   └── 404.astro
 └── styles/global.css       # @theme tokens: brand purple, fonts, spacing
 ```
@@ -44,7 +57,7 @@ src/
 ## Editing content
 
 ### Updating copy, CTAs, contact info
-Edit **`src/config.ts`** — email, phone, LinkedIn URL, Calendly URL, GA4 ID, and client logo list all live there.
+Edit **`src/config.ts`** — email, phone (Phoebe + Biraj), LinkedIn URL, Calendly URL, GA4 ID, and client logo list all live there.
 
 ### Updating case studies
 Edit the markdown files in **`src/content/case-studies/`**. Each file's frontmatter drives the home card, the `/work` index, and the case study detail page. Add a new case study by dropping in a new `.md` file with the same frontmatter schema — it'll auto-appear.
@@ -52,7 +65,7 @@ Edit the markdown files in **`src/content/case-studies/`**. Each file's frontmat
 `featured: true` in the frontmatter means the case study shows on the home page.
 
 ### Updating testimonials
-Edit **`src/content/testimonials.json`**. `featured: true` → shows on home.
+Edit **`src/content/testimonials.json`**. `featured: true` → shows on home. The `shortQuote` field provides a punchy one-liner for the homepage cards; `quote` is the full version for detail contexts.
 
 ## Deploy (Netlify)
 1. Push to GitHub.
@@ -62,7 +75,7 @@ Edit **`src/content/testimonials.json`**. `featured: true` → shows on home.
    - **Domain** → point `wearepurposebrands.com` at Netlify.
    - **Env** — no environment variables needed for launch.
 
-## Pre-launch checklist (Phoebe to provide)
+## Pre-launch checklist (client to provide)
 Everything below ships as a placeholder and needs real content before launch:
 
 **Assets**
@@ -70,19 +83,21 @@ Everything below ships as a placeholder and needs real content before launch:
 - [ ] SAS Ocean Network badge → `src/assets/brand/sas-ocean-network.svg` (update `Footer.astro`)
 - [ ] 16 client logos (SVG/PNG) → `src/assets/clients/<slug>.svg`, update `LogoStrip.astro` to render images instead of text placeholders
 - [ ] Product hero photos for Goodrays, Salcombe, New London Light, Holos → `src/assets/work/<slug>.jpg`, referenced from each case study frontmatter
-- [ ] Casual photos of Phoebe and Biraj → `src/assets/team/`, update `about.astro`
+- [ ] Casual photo of Phoebe and Biraj together → homepage hero + about page
+- [ ] Individual portraits for About page bios → `src/assets/team/`, update `about.astro`
 - [ ] Trust-signal logos: Moët Hennessy, Heineken, Veuve Clicquot, Belvedere, Heroes Technology, Sports Laboratory → `src/assets/brand-logos/`, update `about.astro`
 - [ ] Default OG image → `public/og-default.png` (1200×630)
 - [ ] Favicon → already present, swap when brand mark lands
 
 **Config (`src/config.ts`)**
+- [ ] `contactBiraj.phone` / `contactBiraj.phoneHref` — Biraj phone number (needed for "Call Biraj" CTA)
 - [ ] `contact.linkedin` — LinkedIn URL
-- [ ] `contact.calendly` — Calendly embed URL (unlocks `/contact` embed + all "Book a call" CTAs)
+- [ ] `contact.calendly` — Calendly embed URL (unlocks `/contact` embed + all CTA buttons)
 - [ ] `ga4MeasurementId` — Google Analytics 4 ID (e.g. `G-XXXXXXXXXX`)
 
-**Copy**
-- [ ] Final About intro, Phoebe bio, Biraj bio in `src/pages/about.astro` (current copy is the brief's draft)
-- [ ] Any additional testimonials → add to `src/content/testimonials.json`
+**Content**
+- [ ] 1-2 additional short testimonials → add to `src/content/testimonials.json` (homepage shows 3-4, currently 2)
+- [ ] New London Light case study needs a client testimonial (`pullQuote` in frontmatter)
 - [ ] Confirm all case study metrics are still accurate
 - [ ] Permission confirmed from all brands to use logos + quotes publicly
 
@@ -99,4 +114,5 @@ Everything below ships as a placeholder and needs real content before launch:
 
 ## Notes
 - **Design reference**: elevatefmcg.com (Framer site) — not copied, but its editorial / serif-display / dark-surface mood informs the type + layout system.
-- **Brief**: `docs/Purpose_Brands_Build_Brief.docx`
+- **Original brief**: `docs/Purpose_Brands_Build_Brief.docx`
+- **V2 feedback/amends**: `docs/PB Website V2.docx` — content restructure, copy rewrite, section reordering per client feedback

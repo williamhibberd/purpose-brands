@@ -1,16 +1,18 @@
 ---
 interface Props {
   quote: string;
+  shortQuote?: string;
   author: string;
   title: string;
 }
 
-const { quote, author, title } = Astro.props;
+const { quote, shortQuote, author, title } = Astro.props;
+const displayQuote = shortQuote || quote;
 ---
 
-<figure class="testimonial">
+<figure class=”testimonial”>
   <blockquote>
-    <p>“{quote}”</p>
+    <p>”{displayQuote}”</p>
   </blockquote>
   <figcaption>
     <span class="testimonial__author">{author}</span>

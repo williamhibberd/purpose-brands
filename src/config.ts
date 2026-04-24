@@ -3,10 +3,10 @@
 
 export const site = {
   name: 'Purpose Brands',
-  tagline: 'Your Amazon agency for food, drink, and wellness brands.',
+  tagline: 'We run Amazon for brilliant brands.',
   url: 'https://wearepurposebrands.com',
   description:
-    'Purpose Brands is an Amazon agency for food, drink, and wellness brands. We manage your Amazon account, grow your sales, and protect your brand — with the same people, every single day.',
+    'Purpose Brands is a specialist Amazon agency for food, drink, and wellness brands. Two people, 15 years of experience, no juniors — just results.',
 } as const;
 
 export const contact = {
@@ -15,6 +15,12 @@ export const contact = {
   phoneHref: 'tel:+447525836824',
   linkedin: '#', // TODO: Phoebe to provide LinkedIn URL
   calendly: '', // TODO: Phoebe to provide Calendly embed URL
+} as const;
+
+export const contactBiraj = {
+  email: 'biraj@wearepurposebrands.com',
+  phone: '+44 (0) XXXX XXX XXX', // TODO: Biraj to provide phone number
+  phoneHref: 'tel:+44XXXXXXXXXX', // TODO: Biraj to provide phone number
 } as const;
 
 // Google Analytics 4 measurement ID. Leave empty to disable analytics entirely.
