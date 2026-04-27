@@ -1,58 +1,55 @@
-[
-  {
-    "id": "home",
-    "hero": {
-      "headline": "\"They get shit done.\"",
-      "attribution": "— Eoin Keenan, Founder, Goodrays",
-      "sub": "We're Phoebe and Biraj. We run Amazon for brilliant brands. Two people. 15 years. No juniors.",
-      "primaryCtaLabel": "Let's have a chat",
-      "secondaryCtaLabel": "See the results →",
-      "secondaryCtaHref": "/work"
-    },
-    "proofStats": [
-      { "value": "200+", "label": "units sold per day" },
-      { "value": "8x", "label": "sales growth" },
-      { "value": "12", "label": "months as Best Seller" }
+{
+  "hero": {
+    "headline": "\"They get shit done.\"",
+    "attribution": "— Eoin Keenan, Founder, Goodrays",
+    "sub": "We're Phoebe and Biraj. We run Amazon for brilliant brands. Two people. 15 years. No juniors.",
+    "primaryCtaLabel": "Let's have a chat",
+    "secondaryCtaLabel": "See the results →",
+    "secondaryCtaHref": "/work"
+  },
+  "proofStats": [
+    { "value": "200+", "label": "units sold per day" },
+    { "value": "8x", "label": "sales growth" },
+    { "value": "12", "label": "months as Best Seller" }
+  ],
+  "testimonialsSection": {
+    "eyebrow": "In their words",
+    "heading": "Don't take our word for it."
+  },
+  "whoWeAre": {
+    "eyebrow": "Who we are",
+    "heading": "We're Phoebe and Biraj.",
+    "photoLabel": "Phoebe & Biraj",
+    "body": [
+      "Phoebe spent 15 years at Moët Hennessy, Heineken, and Belvedere. Biraj built an Amazon brand from nothing and sold it for seven figures. We started Purpose Brands because every Amazon agency we met was either too big to care or too small to deliver.",
+      "We only work with food, drink, and wellness brands. We only work on Amazon. And you only ever work with us. That's it."
     ],
-    "testimonialsSection": {
-      "eyebrow": "In their words",
-      "heading": "Don't take our word for it."
-    },
-    "whoWeAre": {
-      "eyebrow": "Who we are",
-      "heading": "We're Phoebe and Biraj.",
-      "photoLabel": "Phoebe & Biraj",
-      "body": [
-        "Phoebe spent 15 years at Moët Hennessy, Heineken, and Belvedere. Biraj built an Amazon brand from nothing and sold it for seven figures. We started Purpose Brands because every Amazon agency we met was either too big to care or too small to deliver.",
-        "We only work with food, drink, and wellness brands. We only work on Amazon. And you only ever work with us. That's it."
-      ],
-      "ctaLabel": "More about us →",
-      "ctaHref": "/about"
-    },
-    "howItWorks": {
-      "eyebrow": "How it works",
-      "heading": "Three steps. No faff.",
-      "items": [
-        { "title": "We have a chat", "body": "30 minutes. We'll ask about your brand, your Amazon, and what's not working." },
-        { "title": "We do a free audit", "body": "We look at your listings, your ads, your storefront, and tell you what we'd change." },
-        { "title": "If we're a fit, we get to work", "body": "Same day if you want. No 12-week onboarding." }
-      ]
-    },
-    "services": {
-      "eyebrow": "What we do",
-      "heading": "Four things, done properly.",
-      "items": [
-        { "title": "We run your Amazon", "body": "Day-to-day management of your Vendor or Seller account. Weekly updates. Monthly reporting. All the boring stuff that actually matters, handled." },
-        { "title": "We spend your ad budget like it's ours", "body": "Because wasting money on ads that don't convert is painful. We run your Sponsored Products, Brands, and Display — and we actually watch what's happening." },
-        { "title": "We make your Amazon look like your brand", "body": "Storefronts, A+ content, product pages. Your Amazon should look as good as your website. Right now, it probably doesn't." },
-        { "title": "We get your products found", "body": "Titles, bullets, keywords, images — optimised so people actually find you when they search. No dark arts. Just the work." }
-      ]
-    },
-    "caseStudies": {
-      "eyebrow": "Selected work",
-      "heading": "The receipts.",
-      "ctaLabel": "All case studies →",
-      "ctaHref": "/work"
-    }
+    "ctaLabel": "More about us →",
+    "ctaHref": "/about"
+  },
+  "howItWorks": {
+    "eyebrow": "How it works",
+    "heading": "Three steps. No faff.",
+    "items": [
+      { "title": "We have a chat", "body": "30 minutes. We'll ask about your brand, your Amazon, and what's not working." },
+      { "title": "We do a free audit", "body": "We look at your listings, your ads, your storefront, and tell you what we'd change." },
+      { "title": "If we're a fit, we get to work", "body": "Same day if you want. No 12-week onboarding." }
+    ]
+  },
+  "services": {
+    "eyebrow": "What we do",
+    "heading": "Four things, done properly.",
+    "items": [
+      { "title": "We run your Amazon", "body": "Day-to-day management of your Vendor or Seller account. Weekly updates. Monthly reporting. All the boring stuff that actually matters, handled." },
+      { "title": "We spend your ad budget like it's ours", "body": "Because wasting money on ads that don't convert is painful. We run your Sponsored Products, Brands, and Display — and we actually watch what's happening." },
+      { "title": "We make your Amazon look like your brand", "body": "Storefronts, A+ content, product pages. Your Amazon should look as good as your website. Right now, it probably doesn't." },
+      { "title": "We get your products found", "body": "Titles, bullets, keywords, images — optimised so people actually find you when they search. No dark arts. Just the work." }
+    ]
+  },
+  "caseStudies": {
+    "eyebrow": "Selected work",
+    "heading": "The receipts.",
+    "ctaLabel": "All case studies →",
+    "ctaHref": "/work"
   }
-]
+}

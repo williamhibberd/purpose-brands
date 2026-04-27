@@ -1,34 +1,31 @@
-[
-  {
-    "id": "contact",
-    "title": "Contact",
-    "description": "Book a free 30-minute call with Purpose Brands and we'll have an honest conversation about whether Amazon is the right move for your brand.",
-    "head": {
-      "eyebrow": "Contact",
-      "heading": "Fancy a chat?",
-      "sub": "30 minutes. We'll tell you honestly whether Amazon's right for your brand, and if we're the right team to help."
-    },
-    "calendlyLabel": "Book a time",
-    "calendly": {
-      "iframeTitle": "Book a call with Purpose Brands",
-      "placeholderHeading": "Calendly embed coming soon.",
-      "placeholderBody": "is finalising the booking link — in the meantime, drop us a line at"
-    },
-    "form": {
-      "honeypotLabel": "Don't fill this out if you're human:",
-      "fields": [
-        { "id": "name", "label": "Name", "type": "text", "autocomplete": "name", "required": true },
-        { "id": "email", "label": "Email", "type": "email", "autocomplete": "email", "required": true },
-        { "id": "brand", "label": "Brand name", "optionalLabel": "(optional)", "type": "text", "autocomplete": "organization" },
-        { "id": "message", "label": "Message", "type": "textarea", "rows": 5, "required": true }
-      ],
-      "submitLabel": "Send message"
-    },
-    "details": {
-      "emailLabel": "Email",
-      "phoneLabel": "Phone",
-      "linkedinLabel": "LinkedIn",
-      "linkedinText": "Connect on LinkedIn"
-    }
+{
+  "title": "Contact",
+  "description": "Book a free 30-minute call with Purpose Brands and we'll have an honest conversation about whether Amazon is the right move for your brand.",
+  "head": {
+    "eyebrow": "Contact",
+    "heading": "Fancy a chat?",
+    "sub": "30 minutes. We'll tell you honestly whether Amazon's right for your brand, and if we're the right team to help."
+  },
+  "calendlyLabel": "Book a time",
+  "calendly": {
+    "iframeTitle": "Book a call with Purpose Brands",
+    "placeholderHeading": "Calendly embed coming soon.",
+    "placeholderBody": "is finalising the booking link — in the meantime, drop us a line at"
+  },
+  "form": {
+    "honeypotLabel": "Don't fill this out if you're human:",
+    "fields": [
+      { "id": "name", "label": "Name", "type": "text", "autocomplete": "name", "required": true },
+      { "id": "email", "label": "Email", "type": "email", "autocomplete": "email", "required": true },
+      { "id": "brand", "label": "Brand name", "optionalLabel": "(optional)", "type": "text", "autocomplete": "organization" },
+      { "id": "message", "label": "Message", "type": "textarea", "rows": 5, "required": true }
+    ],
+    "submitLabel": "Send message"
+  },
+  "details": {
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "linkedinLabel": "LinkedIn",
+    "linkedinText": "Connect on LinkedIn"
   }
-]
+}

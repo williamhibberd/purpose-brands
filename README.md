@@ -28,19 +28,19 @@ src/
 ├── lib/site.ts                # Helpers: getSettings, getPrimaryContact, getNavItems, etc.
 ├── content/
 │   ├── EDITING.md             # ← Read this to edit any text on the site
-│   ├── settings.json          # Site name, URL, GA4 ID, Calendly URL, LinkedIn URL
-│   ├── contacts.json          # Phoebe + Biraj (email, phone)
-│   ├── navItems.json          # Top-nav links
-│   ├── clientLogos.json       # Logo strip on homepage
-│   ├── footer.json            # Footer copy (tagline, badge, headings, meta)
+│   ├── settings/site.json     # Site name, URL, GA4 ID, Calendly URL, LinkedIn URL, cookie + CTA defaults
+│   ├── footer/footer.json     # Footer copy (tagline, badge, headings, meta)
 │   ├── pages/
 │   │   ├── home.json          # Homepage copy (hero, sections, services)
 │   │   ├── about.json         # About page (intro, bios, SAS)
 │   │   ├── work.json          # /work index head, bottom CTA, case study labels
 │   │   ├── contact.json       # /contact head, form labels, Calendly placeholder
-│   │   └── notFound.json      # 404 page copy
-│   ├── case-studies/          # One .md per case study (with heroStat frontmatter)
-│   └── testimonials.json      # Testimonial list (with shortQuote for homepage)
+│   │   └── not-found.json     # 404 page copy
+│   ├── contacts/              # One file per contact (phoebe.json, biraj.json)
+│   ├── nav-items/              # One file per nav link (home.json, about.json, …)
+│   ├── client-logos/           # One file per logo (salcombe-gin.json, …)
+│   ├── testimonials/           # One file per testimonial (eoin-keenan.json, …)
+│   └── case-studies/           # One .md per case study (with heroStat frontmatter)
 ├── components/
 │   ├── ProofBar.astro         # Stat bar: large numbers + labels
 │   ├── CtaBlock.astro         # CTA block with optional dualCta mode
@@ -73,21 +73,45 @@ See **[`src/content/EDITING.md`](./src/content/EDITING.md)** for a full per-file
 
 | To change… | Edit |
 |---|---|
-| Site name / URL / Calendly URL / GA4 ID / LinkedIn | `src/content/settings.json` |
-| Cookie banner copy + default CTA copy | `src/content/settings.json` |
-| Phoebe or Biraj email/phone | `src/content/contacts.json` |
-| Top nav links | `src/content/navItems.json` |
-| Client logo strip | `src/content/clientLogos.json` |
-| Footer tagline / SAS badge / meta line | `src/content/footer.json` |
+| Site name / URL / Calendly URL / GA4 ID / LinkedIn / cookie banner / default CTA | `src/content/settings/site.json` |
+| Phoebe or Biraj email/phone | `src/content/contacts/<name>.json` |
+| Top nav links | `src/content/nav-items/<page>.json` |
+| Client logo strip | `src/content/client-logos/<slug>.json` |
+| Footer tagline / SAS badge / meta line | `src/content/footer/footer.json` |
 | Homepage copy (hero, services, etc.) | `src/content/pages/home.json` |
 | About page (bios, intro, SAS section) | `src/content/pages/about.json` |
 | /work index intro + case study section labels | `src/content/pages/work.json` |
 | /contact intro + form labels + Calendly placeholder | `src/content/pages/contact.json` |
-| 404 page copy | `src/content/pages/notFound.json` |
+| 404 page copy | `src/content/pages/not-found.json` |
 | Case studies (cards + detail pages) | `src/content/case-studies/*.md` |
-| Testimonials | `src/content/testimonials.json` |
+| Testimonials | `src/content/testimonials/<slug>.json` |
 
 Schemas are enforced — `npx astro check` validates everything before deploy.
+
+## Sveltia CMS (`/admin`)
+
+Phoebe edits content in the browser at **`https://wearepurposebrands.com/admin`**. Saving commits to the GitHub repo and triggers a Netlify deploy (~2 min).
+
+OAuth runs as a Netlify Edge Function in this same site — no Cloudflare account needed. Source: [`netlify/edge-functions/sveltia-auth.ts`](./netlify/edge-functions/sveltia-auth.ts) (ported from `sveltia/sveltia-cms-auth`).
+
+**Setup (one-time):**
+
+1. **Create a GitHub OAuth App** at <https://github.com/settings/developers>:
+   - Homepage URL: `https://wearepurposebrands.com`
+   - Authorization callback URL: `https://wearepurposebrands.com/admin/callback`
+   - Save the Client ID + Client Secret.
+2. **Add three environment variables** in Netlify (Site settings → Environment variables):
+   - `GITHUB_CLIENT_ID` = the OAuth App Client ID
+   - `GITHUB_CLIENT_SECRET` = the OAuth App Client Secret
+   - `ALLOWED_DOMAINS` = `wearepurposebrands.com,*.netlify.app` (so deploy previews can also auth)
+3. **Update `public/admin/config.yml`** — replace `REPLACE_ME/purpose-brands` with `<github-org>/purpose-brands`. Confirm `branch: master` matches your default branch.
+4. **Push to GitHub**, wait for Netlify deploy, visit `/admin`, click "Sign in with GitHub", authorize the OAuth app.
+
+The edge function only handles `/admin/auth` and `/admin/callback`; everything else under `/admin/` is the static CMS bundle.
+
+**Image uploads** go to `src/assets/uploads/`. Sveltia writes the path into the JSON; Astro's `image()` helper validates and `<Image />` optimizes (WebP/AVIF, responsive srcsets) at build time.
+
+**Schemas live twice** — Zod in `src/content.config.ts` (build-time validation) and YAML in `public/admin/config.yml` (CMS UI). When you change one, change the other. CI catches drift via `astro check`.
 
 ## Deploy (Netlify)
 1. Push to GitHub.

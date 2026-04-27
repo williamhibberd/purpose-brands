@@ -1,5 +1,12 @@
 # Editing site content
 
+You have two ways to edit content:
+
+1. **The CMS at `/admin`** (recommended for non-developers). Sign in with GitHub, edit in a friendly form, click Save. Your edit becomes a commit on the repo and the live site updates in ~2 minutes.
+2. **Editing files directly** in this folder, if you're working in the codebase. The rest of this guide covers that path.
+
+Both paths edit the same files — pick whichever feels easier.
+
 All editable text on the site lives in this folder. Open the file you want to edit, change the text in quotes, save. The site picks it up on the next build (or instantly during `npm run dev`).
 
 ## Rules of the road
@@ -16,7 +23,7 @@ All editable text on the site lives in this folder. Open the file you want to ed
 
 ## Top-level files
 
-### `settings.json` — site-wide settings
+### `settings/site.json` — site-wide settings
 
 Single record. Edit values, keep keys.
 
@@ -32,9 +39,9 @@ Single record. Edit values, keep keys.
 | `cookies`          | Cookie banner copy: `body`, `declineLabel`, `allowLabel`                                                           |
 | `cta`              | Defaults for the bottom-of-page CTA block: `defaultHeadline`, `defaultSubtext`, `defaultLabel`, `dualCtaPrefix` (e.g. `"Call "` → "Call Phoebe") |
 
-### `contacts.json` — Phoebe + Biraj contact records
+### `contacts/` — Phoebe + Biraj contact records
 
-Two records. `phoebe` is the primary contact (used in footer, homepage hero, contact page). `biraj` is used in the homepage dual-CTA "Call Biraj" button.
+One file per contact: `phoebe.json` and `biraj.json`. `phoebe` is the primary contact (used in footer, homepage hero, contact page). `biraj` is used in the homepage dual-CTA "Call Biraj" button. The filename becomes the contact's id; don't rename.
 
 | Field       | Notes                                                         |
 | ----------- | ------------------------------------------------------------- |
@@ -44,21 +51,21 @@ Two records. `phoebe` is the primary contact (used in footer, homepage hero, con
 | `phone`     | Display version with formatting (e.g. `+44 (0) 7525 836 824`) |
 | `phoneHref` | Click-to-call version, no spaces (e.g. `tel:+447525836824`)   |
 
-### `navItems.json` — top navigation
+### `nav-items/` — top navigation
 
-Add/remove/reorder nav links. `order` controls left-to-right order.
+One file per link. Filename becomes the id. `order` controls left-to-right order.
 
-### `clientLogos.json` — logo strip on homepage
+### `client-logos/` — logo strip on homepage
 
-Add/remove/reorder logos. `id` should match the logo filename in `src/assets/clients/<id>.svg` once real logos land.
+One file per logo. Filename should match `src/assets/clients/<filename>.svg` once real logos land.
 
-### `footer.json` — footer copy
+### `footer/footer.json` — footer copy
 
 Single record. Edit the tagline, the SAS badge text (`badge` is a list of two lines), section headings, and the bottom-right meta line ("Made on the South Devon coast.").
 
-### `testimonials.json` — testimonial list
+### `testimonials/` — testimonial records
 
-Each entry has:
+One file per testimonial. Filename becomes the id. Each file has:
 
 - `quote` — full quote (used on case study pages where space allows)
 - `shortQuote` — shorter version for homepage cards (optional; falls back to `quote`)
@@ -116,7 +123,7 @@ Each file is one page. Structure mirrors the page sections.
 - `form.honeypotLabel` — anti-spam label, hidden from view
 - `details` — labels for the email / phone / LinkedIn list
 
-### `pages/notFound.json`
+### `pages/not-found.json`
 
 - `title` — `<title>` for the 404 page
 - `eyebrow` / `heading` / `sub` — page copy

@@ -1,0 +1,632 @@
+# Sveltia CMS configuration for Purpose Brands.
+# Mirrors the Zod schemas in src/content.config.ts.
+# Saved edits commit straight to the GitHub repo and trigger a Netlify deploy.
+
+backend:
+    name: github
+    repo: willrhibberd/purpose-brands # ← change to your-github-org/purpose-brands
+    branch: master
+    # OAuth handler runs as a Netlify Edge Function in this same site.
+    base_url: https://purpose-brands.netlify.app/
+    auth_endpoint: admin/auth
+
+publish_mode: simple # direct commits, no PR review
+site_url: https://purpose-brands.netlify.app/
+display_url: https://purpose-brands.netlify.app/
+locale: en
+
+# Where uploaded images live + how their paths get written into JSON.
+# Astro's image() helper resolves these relative to project root.
+media_folder: src/assets/uploads
+public_folder: /src/assets/uploads
+
+collections:
+    # ─────────────────────────────────────────────
+    # Site-wide settings (single record per file)
+    # ─────────────────────────────────────────────
+    - name: settings
+      label: Site settings
+      icon: settings
+      files:
+          - name: site
+            label: Site
+            file: src/content/settings/site.json
+            format: json
+            fields:
+                - { name: name, label: Site name, widget: string }
+                - { name: tagline, label: Tagline, widget: string }
+                - { name: url, label: Production URL, widget: string }
+                - {
+                      name: description,
+                      label: Default meta description,
+                      widget: text,
+                  }
+                - {
+                      name: ga4MeasurementId,
+                      label: GA4 measurement ID,
+                      widget: string,
+                      required: false,
+                  }
+                - {
+                      name: calendly,
+                      label: Calendly embed URL,
+                      widget: string,
+                      required: false,
+                  }
+                - { name: linkedin, label: LinkedIn URL, widget: string }
+                - name: cookies
+                  label: Cookie banner
+                  widget: object
+                  fields:
+                      - { name: body, label: Body, widget: text }
+                      - {
+                            name: declineLabel,
+                            label: Decline button label,
+                            widget: string,
+                        }
+                      - {
+                            name: allowLabel,
+                            label: Allow button label,
+                            widget: string,
+                        }
+                - name: cta
+                  label: Default CTA block
+                  widget: object
+                  fields:
+                      - {
+                            name: defaultHeadline,
+                            label: Default headline,
+                            widget: string,
+                        }
+                      - {
+                            name: defaultSubtext,
+                            label: Default subtext,
+                            widget: text,
+                        }
+                      - {
+                            name: defaultLabel,
+                            label: Default button label,
+                            widget: string,
+                        }
+                      - {
+                            name: dualCtaPrefix,
+                            label: Dual-CTA prefix (e.g. "Call "),
+                            widget: string,
+                        }
+
+    # ─────────────────────────────────────────────
+    # Footer copy
+    # ─────────────────────────────────────────────
+    - name: footer
+      label: Footer
+      icon: bottom_panel_open
+      files:
+          - name: footer
+            label: Footer
+            file: src/content/footer/footer.json
+            format: json
+            fields:
+                - { name: tagline, label: Tagline, widget: text }
+                - {
+                      name: badge,
+                      label: SAS badge lines,
+                      widget: list,
+                      field: { label: Line, widget: string },
+                  }
+                - {
+                      name: navHeading,
+                      label: Nav column heading,
+                      widget: string,
+                  }
+                - {
+                      name: contactHeading,
+                      label: Contact column heading,
+                      widget: string,
+                  }
+                - {
+                      name: linkedinLabel,
+                      label: LinkedIn link label,
+                      widget: string,
+                  }
+                - {
+                      name: metaText,
+                      label: Bottom-right meta line,
+                      widget: string,
+                  }
+
+    # ─────────────────────────────────────────────
+    # Page copy
+    # ─────────────────────────────────────────────
+    - name: pages
+      label: Pages
+      icon: description
+      files:
+          - name: home
+            label: Homepage
+            file: src/content/pages/home.json
+            format: json
+            fields:
+                - name: hero
+                  label: Hero
+                  widget: object
+                  fields:
+                      - { name: headline, label: Headline, widget: string }
+                      - {
+                            name: attribution,
+                            label: Attribution,
+                            widget: string,
+                        }
+                      - { name: sub, label: Sub-paragraph, widget: text }
+                      - {
+                            name: primaryCtaLabel,
+                            label: Primary CTA label,
+                            widget: string,
+                        }
+                      - {
+                            name: secondaryCtaLabel,
+                            label: Secondary CTA label,
+                            widget: string,
+                        }
+                      - {
+                            name: secondaryCtaHref,
+                            label: Secondary CTA href,
+                            widget: string,
+                        }
+                - name: proofStats
+                  label: Proof stats
+                  widget: list
+                  fields:
+                      - { name: value, label: Value, widget: string }
+                      - { name: label, label: Label, widget: string }
+                - name: testimonialsSection
+                  label: Testimonials section heading
+                  widget: object
+                  fields:
+                      - { name: eyebrow, label: Eyebrow, widget: string }
+                      - { name: heading, label: Heading, widget: string }
+                - name: whoWeAre
+                  label: Who we are
+                  widget: object
+                  fields:
+                      - { name: eyebrow, label: Eyebrow, widget: string }
+                      - { name: heading, label: Heading, widget: string }
+                      - {
+                            name: photoLabel,
+                            label: Photo placeholder label,
+                            widget: string,
+                        }
+                      - {
+                            name: body,
+                            label: Body paragraphs,
+                            widget: list,
+                            field: { label: Paragraph, widget: text },
+                        }
+                      - { name: ctaLabel, label: CTA label, widget: string }
+                      - { name: ctaHref, label: CTA href, widget: string }
+                - name: howItWorks
+                  label: How it works
+                  widget: object
+                  fields:
+                      - { name: eyebrow, label: Eyebrow, widget: string }
+                      - { name: heading, label: Heading, widget: string }
+                      - name: items
+                        label: Steps
+                        widget: list
+                        fields:
+                            - { name: title, label: Title, widget: string }
+                            - { name: body, label: Body, widget: text }
+                - name: services
+                  label: Services
+                  widget: object
+                  fields:
+                      - { name: eyebrow, label: Eyebrow, widget: string }
+                      - { name: heading, label: Heading, widget: string }
+                      - name: items
+                        label: Services
+                        widget: list
+                        fields:
+                            - { name: title, label: Title, widget: string }
+                            - { name: body, label: Body, widget: text }
+                - name: caseStudies
+                  label: Case studies block
+                  widget: object
+                  fields:
+                      - { name: eyebrow, label: Eyebrow, widget: string }
+                      - { name: heading, label: Heading, widget: string }
+                      - { name: ctaLabel, label: CTA label, widget: string }
+                      - { name: ctaHref, label: CTA href, widget: string }
+
+          - name: about
+            label: About
+            file: src/content/pages/about.json
+            format: json
+            fields:
+                - { name: title, label: Page title, widget: string }
+                - { name: description, label: Meta description, widget: text }
+                - name: intro
+                  label: Intro
+                  widget: object
+                  fields:
+                      - { name: eyebrow, label: Eyebrow, widget: string }
+                      - { name: heading, label: Heading, widget: string }
+                      - {
+                            name: body,
+                            label: Body paragraphs,
+                            widget: list,
+                            field: { label: Paragraph, widget: text },
+                        }
+                - name: bios
+                  label: Founder bios
+                  widget: list
+                  fields:
+                      - { name: eyebrow, label: Eyebrow, widget: string }
+                      - { name: name, label: Name, widget: string }
+                      - {
+                            name: photoLabel,
+                            label: Photo placeholder label,
+                            widget: string,
+                        }
+                      - {
+                            name: lede,
+                            label: Lede (big intro line),
+                            widget: text,
+                        }
+                      - {
+                            name: body,
+                            label: Body paragraphs,
+                            widget: list,
+                            field: { label: Paragraph, widget: text },
+                        }
+                      - {
+                            name: trustList,
+                            label: Brand pills,
+                            widget: list,
+                            field: { label: Brand, widget: string },
+                        }
+                      - {
+                            name: reverse,
+                            label: Reverse layout,
+                            widget: boolean,
+                            default: false,
+                        }
+                - name: sas
+                  label: SAS section
+                  widget: object
+                  fields:
+                      - { name: body, label: Body, widget: text }
+
+          - name: work
+            label: Work
+            file: src/content/pages/work.json
+            format: json
+            fields:
+                - { name: title, label: Page title, widget: string }
+                - { name: description, label: Meta description, widget: text }
+                - name: head
+                  label: Page head
+                  widget: object
+                  fields:
+                      - { name: eyebrow, label: Eyebrow, widget: string }
+                      - { name: heading, label: Heading, widget: string }
+                      - { name: sub, label: Sub-paragraph, widget: text }
+                - name: cta
+                  label: Bottom CTA
+                  widget: object
+                  fields:
+                      - { name: headline, label: Headline, widget: string }
+                      - { name: subtext, label: Subtext, widget: text }
+                - name: labels
+                  label: Case study labels
+                  widget: object
+                  fields:
+                      - {
+                            name: challenge,
+                            label: Challenge heading (cards),
+                            widget: string,
+                        }
+                      - {
+                            name: whatWeDid,
+                            label: What we did heading,
+                            widget: string,
+                        }
+                      - {
+                            name: results,
+                            label: Results heading,
+                            widget: string,
+                        }
+                      - {
+                            name: readMore,
+                            label: Read more link,
+                            widget: string,
+                        }
+                      - { name: backLink, label: Back link, widget: string }
+                      - {
+                            name: situation,
+                            label: Situation heading (detail page),
+                            widget: string,
+                        }
+                      - {
+                            name: pagerPrev,
+                            label: Pager previous label,
+                            widget: string,
+                        }
+                      - {
+                            name: pagerNext,
+                            label: Pager next label,
+                            widget: string,
+                        }
+
+          - name: contact
+            label: Contact
+            file: src/content/pages/contact.json
+            format: json
+            fields:
+                - { name: title, label: Page title, widget: string }
+                - { name: description, label: Meta description, widget: text }
+                - name: head
+                  label: Page head
+                  widget: object
+                  fields:
+                      - { name: eyebrow, label: Eyebrow, widget: string }
+                      - { name: heading, label: Heading, widget: string }
+                      - { name: sub, label: Sub-paragraph, widget: text }
+                - {
+                      name: calendlyLabel,
+                      label: Calendly section eyebrow,
+                      widget: string,
+                  }
+                - name: calendly
+                  label: Calendly placeholder
+                  widget: object
+                  fields:
+                      - {
+                            name: iframeTitle,
+                            label: Iframe accessible title,
+                            widget: string,
+                        }
+                      - {
+                            name: placeholderHeading,
+                            label: Placeholder heading,
+                            widget: string,
+                        }
+                      - {
+                            name: placeholderBody,
+                            label: Placeholder body,
+                            widget: text,
+                        }
+                - name: form
+                  label: Contact form
+                  widget: object
+                  fields:
+                      - {
+                            name: honeypotLabel,
+                            label: Honeypot label (hidden),
+                            widget: string,
+                        }
+                      - name: fields
+                        label: Form fields
+                        widget: list
+                        hint: Don't change the `id` values — they map to Netlify form submissions.
+                        fields:
+                            - { name: id, label: ID, widget: string }
+                            - { name: label, label: Label, widget: string }
+                            - {
+                                  name: optionalLabel,
+                                  label: Optional label suffix,
+                                  widget: string,
+                                  required: false,
+                              }
+                            - {
+                                  name: type,
+                                  label: Type,
+                                  widget: select,
+                                  options: [text, email, textarea],
+                              }
+                            - {
+                                  name: autocomplete,
+                                  label: Autocomplete,
+                                  widget: string,
+                                  required: false,
+                              }
+                            - {
+                                  name: rows,
+                                  label: Rows (textarea),
+                                  widget: number,
+                                  value_type: int,
+                                  required: false,
+                              }
+                            - {
+                                  name: required,
+                                  label: Required,
+                                  widget: boolean,
+                                  default: false,
+                              }
+                      - {
+                            name: submitLabel,
+                            label: Submit button label,
+                            widget: string,
+                        }
+                - name: details
+                  label: Contact details
+                  widget: object
+                  fields:
+                      - { name: emailLabel, label: Email label, widget: string }
+                      - { name: phoneLabel, label: Phone label, widget: string }
+                      - {
+                            name: linkedinLabel,
+                            label: LinkedIn label,
+                            widget: string,
+                        }
+                      - {
+                            name: linkedinText,
+                            label: LinkedIn link text,
+                            widget: string,
+                        }
+
+          - name: notFound
+            label: 404 page
+            file: src/content/pages/not-found.json
+            format: json
+            fields:
+                - { name: title, label: Page title, widget: string }
+                - { name: eyebrow, label: Eyebrow, widget: string }
+                - { name: heading, label: Heading, widget: string }
+                - { name: sub, label: Sub-paragraph, widget: text }
+                - name: primaryCta
+                  label: Primary CTA
+                  widget: object
+                  fields:
+                      - { name: label, label: Label, widget: string }
+                      - { name: href, label: Href, widget: string }
+                - name: secondaryCta
+                  label: Secondary CTA
+                  widget: object
+                  fields:
+                      - { name: label, label: Label, widget: string }
+                      - { name: href, label: Href, widget: string }
+
+    # ─────────────────────────────────────────────
+    # Folder collections (one file per record).
+    # Filename = entry id. Sveltia derives `slug` from filename; Astro derives id likewise.
+    # ─────────────────────────────────────────────
+    - name: contacts
+      label: Contacts
+      icon: contacts
+      folder: src/content/contacts
+      create: true
+      slug: "{{slug}}"
+      extension: json
+      format: json
+      fields:
+          - { name: name, label: First name, widget: string }
+          - {
+                name: primary,
+                label: Primary contact,
+                widget: boolean,
+                default: false,
+            }
+          - { name: email, label: Email, widget: string }
+          - { name: phone, label: Phone (display), widget: string }
+          - { name: phoneHref, label: Phone link (tel:...), widget: string }
+
+    - name: navItems
+      label: Navigation
+      icon: menu
+      folder: src/content/nav-items
+      create: true
+      slug: "{{slug}}"
+      extension: json
+      format: json
+      fields:
+          - { name: label, label: Label, widget: string }
+          - { name: href, label: Href, widget: string }
+          - { name: order, label: Order, widget: number, value_type: int }
+
+    - name: clientLogos
+      label: Client logos
+      icon: domain
+      folder: src/content/client-logos
+      create: true
+      slug: "{{slug}}"
+      extension: json
+      format: json
+      fields:
+          - { name: name, label: Brand name, widget: string }
+          - { name: order, label: Order, widget: number, value_type: int }
+
+    - name: testimonials
+      label: Testimonials
+      icon: format_quote
+      folder: src/content/testimonials
+      create: true
+      slug: "{{slug}}"
+      extension: json
+      format: json
+      fields:
+          - { name: quote, label: Full quote, widget: text }
+          - {
+                name: shortQuote,
+                label: Short quote (homepage),
+                widget: text,
+                required: false,
+            }
+          - { name: author, label: Author, widget: string }
+          - { name: title, label: Role + brand, widget: string }
+          - { name: order, label: Order, widget: number, value_type: int }
+          - {
+                name: featured,
+                label: Featured on homepage,
+                widget: boolean,
+                default: false,
+            }
+
+    # ─────────────────────────────────────────────
+    # Case studies (one markdown file per record)
+    # ─────────────────────────────────────────────
+    - name: case-studies
+      label: Case studies
+      icon: cases
+      folder: src/content/case-studies
+      create: true
+      slug: "{{slug}}"
+      extension: md
+      format: frontmatter
+      media_folder: "" # store images alongside the entry
+      public_folder: ""
+      fields:
+          - { name: title, label: Page title, widget: string }
+          - { name: brand, label: Brand, widget: string }
+          - {
+                name: order,
+                label: Display order,
+                widget: number,
+                value_type: int,
+            }
+          - {
+                name: heroImage,
+                label: Hero image,
+                widget: image,
+                required: false,
+            }
+          - {
+                name: regions,
+                label: Regions,
+                widget: list,
+                field: { label: Region, widget: string },
+            }
+          - { name: engagement, label: Engagement type, widget: string }
+          - { name: headline, label: Card headline, widget: string }
+          - { name: challenge, label: Challenge / situation copy, widget: text }
+          - { name: whatWeDid, label: What we did copy, widget: text }
+          - {
+                name: results,
+                label: Results,
+                widget: list,
+                field: { label: Result, widget: string },
+            }
+          - name: heroStat
+            label: Hero stat
+            widget: object
+            required: false
+            fields:
+                - { name: value, label: Value, widget: string }
+                - { name: label, label: Label, widget: string }
+          - name: pullQuote
+            label: Pull quote
+            widget: object
+            required: false
+            fields:
+                - { name: quote, label: Quote, widget: text }
+                - { name: author, label: Author, widget: string }
+          - {
+                name: featured,
+                label: Featured on homepage,
+                widget: boolean,
+                default: false,
+            }
+          - {
+                name: body,
+                label: Body (currently unused),
+                widget: markdown,
+                required: false,
+            }

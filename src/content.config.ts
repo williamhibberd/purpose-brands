@@ -1,39 +1,39 @@
 import { defineCollection, z } from 'astro:content';
-import { glob, file } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 
 const caseStudies = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/case-studies' }),
-  schema: z.object({
-    title: z.string(),
-    brand: z.string(),
-    order: z.number(),
-    heroImage: z.string().optional(),
-    regions: z.array(z.string()),
-    engagement: z.string(),
-    headline: z.string(),
-    challenge: z.string(),
-    whatWeDid: z.string(),
-    results: z.array(z.string()),
-    heroStat: z
-      .object({
-        value: z.string(),
-        label: z.string(),
-      })
-      .optional(),
-    pullQuote: z
-      .object({
-        quote: z.string(),
-        author: z.string(),
-      })
-      .optional(),
-    featured: z.boolean().default(false),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      brand: z.string(),
+      order: z.number(),
+      heroImage: image().optional(),
+      regions: z.array(z.string()),
+      engagement: z.string(),
+      headline: z.string(),
+      challenge: z.string(),
+      whatWeDid: z.string(),
+      results: z.array(z.string()),
+      heroStat: z
+        .object({
+          value: z.string(),
+          label: z.string(),
+        })
+        .optional(),
+      pullQuote: z
+        .object({
+          quote: z.string(),
+          author: z.string(),
+        })
+        .optional(),
+      featured: z.boolean().default(false),
+    }),
 });
 
 const testimonials = defineCollection({
-  loader: file('./src/content/testimonials.json'),
+  loader: glob({ pattern: '*.json', base: './src/content/testimonials' }),
   schema: z.object({
-    id: z.string(),
     quote: z.string(),
     shortQuote: z.string().optional(),
     author: z.string(),
@@ -47,7 +47,7 @@ const numberedItem = z.object({ title: z.string(), body: z.string() });
 const sectionHead = z.object({ eyebrow: z.string(), heading: z.string() });
 
 const home = defineCollection({
-  loader: file('./src/content/pages/home.json'),
+  loader: glob({ pattern: 'home.json', base: './src/content/pages' }),
   schema: z.object({
     hero: z.object({
       headline: z.string(),
@@ -75,7 +75,7 @@ const home = defineCollection({
 });
 
 const about = defineCollection({
-  loader: file('./src/content/pages/about.json'),
+  loader: glob({ pattern: 'about.json', base: './src/content/pages' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -96,7 +96,7 @@ const about = defineCollection({
 });
 
 const work = defineCollection({
-  loader: file('./src/content/pages/work.json'),
+  loader: glob({ pattern: 'work.json', base: './src/content/pages' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -116,7 +116,7 @@ const work = defineCollection({
 });
 
 const contact = defineCollection({
-  loader: file('./src/content/pages/contact.json'),
+  loader: glob({ pattern: 'contact.json', base: './src/content/pages' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -151,8 +151,20 @@ const contact = defineCollection({
   }),
 });
 
+const notFound = defineCollection({
+  loader: glob({ pattern: 'not-found.json', base: './src/content/pages' }),
+  schema: z.object({
+    title: z.string(),
+    eyebrow: z.string(),
+    heading: z.string(),
+    sub: z.string(),
+    primaryCta: z.object({ label: z.string(), href: z.string() }),
+    secondaryCta: z.object({ label: z.string(), href: z.string() }),
+  }),
+});
+
 const settings = defineCollection({
-  loader: file('./src/content/settings.json'),
+  loader: glob({ pattern: '*.json', base: './src/content/settings' }),
   schema: z.object({
     name: z.string(),
     tagline: z.string(),
@@ -176,7 +188,7 @@ const settings = defineCollection({
 });
 
 const contacts = defineCollection({
-  loader: file('./src/content/contacts.json'),
+  loader: glob({ pattern: '*.json', base: './src/content/contacts' }),
   schema: z.object({
     name: z.string(),
     primary: z.boolean().default(false),
@@ -187,7 +199,7 @@ const contacts = defineCollection({
 });
 
 const navItems = defineCollection({
-  loader: file('./src/content/navItems.json'),
+  loader: glob({ pattern: '*.json', base: './src/content/nav-items' }),
   schema: z.object({
     label: z.string(),
     href: z.string(),
@@ -196,27 +208,15 @@ const navItems = defineCollection({
 });
 
 const clientLogos = defineCollection({
-  loader: file('./src/content/clientLogos.json'),
+  loader: glob({ pattern: '*.json', base: './src/content/client-logos' }),
   schema: z.object({
     name: z.string(),
     order: z.number(),
   }),
 });
 
-const notFound = defineCollection({
-  loader: file('./src/content/pages/notFound.json'),
-  schema: z.object({
-    title: z.string(),
-    eyebrow: z.string(),
-    heading: z.string(),
-    sub: z.string(),
-    primaryCta: z.object({ label: z.string(), href: z.string() }),
-    secondaryCta: z.object({ label: z.string(), href: z.string() }),
-  }),
-});
-
 const footer = defineCollection({
-  loader: file('./src/content/footer.json'),
+  loader: glob({ pattern: '*.json', base: './src/content/footer' }),
   schema: z.object({
     tagline: z.string(),
     badge: z.array(z.string()),

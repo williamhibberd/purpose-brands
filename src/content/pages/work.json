@@ -1,26 +1,23 @@
-[
-  {
-    "id": "work",
-    "title": "Work",
-    "description": "Selected Amazon case studies from food, drink, and wellness brands we've grown with Purpose Brands.",
-    "head": {
-      "eyebrow": "Selected work",
-      "heading": "Brands that stand for something, growing on Amazon.",
-      "sub": "A few of the brands we've helped scale, protect, and launch — from Vendor-only invitations to full US market entry."
-    },
-    "cta": {
-      "headline": "Want to be next?",
-      "subtext": "Book a call. We'll have a look at your Amazon and tell you what we'd do. No charge, no commitment."
-    },
-    "labels": {
-      "challenge": "The challenge",
-      "whatWeDid": "What we did",
-      "results": "The results",
-      "readMore": "Read full case study →",
-      "backLink": "← All work",
-      "situation": "The situation",
-      "pagerPrev": "Previous",
-      "pagerNext": "Next"
-    }
+{
+  "title": "Work",
+  "description": "Selected Amazon case studies from food, drink, and wellness brands we've grown with Purpose Brands.",
+  "head": {
+    "eyebrow": "Selected work",
+    "heading": "Brands that stand for something, growing on Amazon.",
+    "sub": "A few of the brands we've helped scale, protect, and launch — from Vendor-only invitations to full US market entry."
+  },
+  "cta": {
+    "headline": "Want to be next?",
+    "subtext": "Book a call. We'll have a look at your Amazon and tell you what we'd do. No charge, no commitment."
+  },
+  "labels": {
+    "challenge": "The challenge",
+    "whatWeDid": "What we did",
+    "results": "The results",
+    "readMore": "Read full case study →",
+    "backLink": "← All work",
+    "situation": "The situation",
+    "pagerPrev": "Previous",
+    "pagerNext": "Next"
   }
-]
+}
