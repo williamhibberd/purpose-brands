@@ -10,7 +10,13 @@
       "mcp__claude_ai_Figma__get_metadata",
       "Bash(npm install:*)",
       "Bash(npx astro:*)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(textutil:*)",
+      "Bash(npm run:*)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

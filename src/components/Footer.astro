@@ -1,6 +1,11 @@
 ---
 import Logo from '../assets/brand/logo.svg';
-import { contact, nav, site } from '../config';
+import { getSettings, getPrimaryContact, getNavItems, getFooter } from '../lib/site';
+
+const settings = await getSettings();
+const primary = await getPrimaryContact();
+const navItems = await getNavItems();
+const footer = await getFooter();
 
 const year = new Date().getFullYear();
 ---
@@ -8,38 +13,35 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container-site site-footer__inner">
     <div class="site-footer__brand">
-      <Logo class="site-footer__mark" role="img" aria-label={site.name} />
-      <p class="site-footer__tagline">
-        Your Amazon agency for food, drink, and wellness brands.
-      </p>
+      <Logo class="site-footer__mark" role="img" aria-label={settings.name} />
+      <p class="site-footer__tagline">{footer.tagline}</p>
       <div class="site-footer__badge" aria-hidden="true">
-        <span>SAS</span>
-        <span>Ocean Network</span>
+        {footer.badge.map((line) => <span>{line}</span>)}
       </div>
     </div>
 
     <nav class="site-footer__nav" aria-label="Footer">
-      <h2>Site</h2>
+      <h2>{footer.navHeading}</h2>
       <ul>
-        {nav.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
+        {navItems.map((item) => (
+          <li><a href={item.data.href}>{item.data.label}</a></li>
         ))}
       </ul>
     </nav>
 
     <div class="site-footer__contact">
-      <h2>Contact</h2>
+      <h2>{footer.contactHeading}</h2>
       <ul>
-        <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
-        <li><a href={contact.phoneHref}>{contact.phone}</a></li>
-        <li><a href={contact.linkedin} rel="me noopener">LinkedIn</a></li>
+        <li><a href={`mailto:${primary.email}`}>{primary.email}</a></li>
+        <li><a href={primary.phoneHref}>{primary.phone}</a></li>
+        <li><a href={settings.linkedin} rel="me noopener">{footer.linkedinLabel}</a></li>
       </ul>
     </div>
   </div>
 
   <div class="container-site site-footer__meta">
-    <p>© {year} {site.name}</p>
-    <p>Made on the South Devon coast.</p>
+    <p>© {year} {settings.name}</p>
+    <p>{footer.metaText}</p>
   </div>
 </footer>
 

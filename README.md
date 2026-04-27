@@ -7,7 +7,7 @@ Built with [Astro](https://astro.build) 6, Tailwind v4, deployed to Netlify.
 ## Stack
 - **Astro 6** — static output, no JS framework islands (zero JS by default)
 - **Tailwind v4** — design tokens defined in `src/styles/global.css` under `@theme`
-- **Content collections** — case studies as markdown in `src/content/case-studies/`, testimonials as JSON
+- **Content collections** — all editable content (page copy, settings, contacts, nav, logos, footer, case studies, testimonials) lives under `src/content/`
 - **astro-seo** — meta/OG tags
 - **@astrojs/sitemap** — auto sitemap
 - **Netlify Forms** — contact form, no backend code
@@ -24,48 +24,67 @@ Built with [Astro](https://astro.build) 6, Tailwind v4, deployed to Netlify.
 ## Project structure
 ```
 src/
-├── config.ts               # Central: contact info (Phoebe + Biraj), nav, client logos, GA4 ID
-├── content.config.ts       # Collection schemas (heroStat, shortQuote, etc.)
+├── content.config.ts          # Collection schemas (Zod)
+├── lib/site.ts                # Helpers: getSettings, getPrimaryContact, getNavItems, etc.
 ├── content/
-│   ├── case-studies/       # One .md per case study (with heroStat frontmatter)
-│   └── testimonials.json   # Testimonial list (with shortQuote for homepage)
+│   ├── EDITING.md             # ← Read this to edit any text on the site
+│   ├── settings.json          # Site name, URL, GA4 ID, Calendly URL, LinkedIn URL
+│   ├── contacts.json          # Phoebe + Biraj (email, phone)
+│   ├── navItems.json          # Top-nav links
+│   ├── clientLogos.json       # Logo strip on homepage
+│   ├── footer.json            # Footer copy (tagline, badge, headings, meta)
+│   ├── pages/
+│   │   ├── home.json          # Homepage copy (hero, sections, services)
+│   │   ├── about.json         # About page (intro, bios, SAS)
+│   │   ├── work.json          # /work index head + bottom CTA copy
+│   │   └── contact.json       # /contact head, form labels, detail labels
+│   ├── case-studies/          # One .md per case study (with heroStat frontmatter)
+│   └── testimonials.json      # Testimonial list (with shortQuote for homepage)
 ├── components/
-│   ├── ProofBar.astro      # Stat bar: large numbers + labels
-│   ├── CtaBlock.astro      # CTA block with optional dualCta mode
-│   ├── CaseStudyCard.astro # Card with optional heroStat display
-│   ├── TestimonialCard.astro # Quote card with shortQuote support
-│   ├── Nav.astro           # Sticky header, "Let's talk" CTA
-│   ├── Footer.astro        # Site footer
-│   ├── Button.astro        # Primary/secondary/ghost variants
-│   ├── Section.astro       # Light/dark/alt tone wrapper
-│   ├── NumberedList.astro  # Numbered grid (how it works, services)
-│   ├── LogoStrip.astro     # Scrolling client logo marquee
-│   ├── CaseStudyLong.astro # Full case study card for /work listing
-│   ├── CalendlyEmbed.astro # Calendly iframe or fallback
-│   └── CookieBanner.astro  # GDPR consent, gates GA4
-├── layouts/Base.astro      # Shared <html>, SEO, nav, footer, cookie banner
+│   ├── ProofBar.astro         # Stat bar: large numbers + labels
+│   ├── CtaBlock.astro         # CTA block with optional dualCta mode
+│   ├── CaseStudyCard.astro    # Card with optional heroStat display
+│   ├── TestimonialCard.astro  # Quote card with shortQuote support
+│   ├── Nav.astro              # Sticky header, "Let's talk" CTA
+│   ├── Footer.astro           # Site footer
+│   ├── Button.astro           # Primary/secondary/ghost variants
+│   ├── Section.astro          # Light/dark/alt tone wrapper
+│   ├── NumberedList.astro     # Numbered grid (how it works, services)
+│   ├── LogoStrip.astro        # Scrolling client logo marquee
+│   ├── CaseStudyLong.astro    # Full case study card for /work listing
+│   ├── CalendlyEmbed.astro    # Calendly iframe or fallback
+│   └── CookieBanner.astro     # GDPR consent, gates GA4
+├── layouts/Base.astro         # Shared <html>, SEO, nav, footer, cookie banner
 ├── pages/
-│   ├── index.astro         # Home (9 sections: hero, proof bar, logos, testimonials, who we are, how it works, services, results, CTA)
-│   ├── about.astro         # Story, founder bios, SAS
-│   ├── work/index.astro    # All case studies
-│   ├── work/[slug].astro   # Individual case study with hero stat
-│   ├── contact.astro       # Calendly + form
+│   ├── index.astro            # Home (9 sections)
+│   ├── about.astro            # Story, founder bios, SAS
+│   ├── work/index.astro       # All case studies
+│   ├── work/[slug].astro      # Individual case study with hero stat
+│   ├── contact.astro          # Calendly + form
 │   └── 404.astro
-└── styles/global.css       # @theme tokens: brand purple, fonts, spacing
+└── styles/global.css          # @theme tokens: brand purple, fonts, spacing
 ```
 
 ## Editing content
+**All editable text lives under `src/content/`** — nothing in `.astro` files needs to change to update copy.
 
-### Updating copy, CTAs, contact info
-Edit **`src/config.ts`** — email, phone (Phoebe + Biraj), LinkedIn URL, Calendly URL, GA4 ID, and client logo list all live there.
+See **[`src/content/EDITING.md`](./src/content/EDITING.md)** for a full per-file guide. Quick reference:
 
-### Updating case studies
-Edit the markdown files in **`src/content/case-studies/`**. Each file's frontmatter drives the home card, the `/work` index, and the case study detail page. Add a new case study by dropping in a new `.md` file with the same frontmatter schema — it'll auto-appear.
+| To change… | Edit |
+|---|---|
+| Site name / URL / Calendly URL / GA4 ID / LinkedIn | `src/content/settings.json` |
+| Phoebe or Biraj email/phone | `src/content/contacts.json` |
+| Top nav links | `src/content/navItems.json` |
+| Client logo strip | `src/content/clientLogos.json` |
+| Footer tagline / SAS badge / meta line | `src/content/footer.json` |
+| Homepage copy (hero, services, etc.) | `src/content/pages/home.json` |
+| About page (bios, intro, SAS section) | `src/content/pages/about.json` |
+| /work index intro + CTA | `src/content/pages/work.json` |
+| /contact intro + form labels | `src/content/pages/contact.json` |
+| Case studies (cards + detail pages) | `src/content/case-studies/*.md` |
+| Testimonials | `src/content/testimonials.json` |
 
-`featured: true` in the frontmatter means the case study shows on the home page.
-
-### Updating testimonials
-Edit **`src/content/testimonials.json`**. `featured: true` → shows on home. The `shortQuote` field provides a punchy one-liner for the homepage cards; `quote` is the full version for detail contexts.
+Schemas are enforced — `npx astro check` validates everything before deploy.
 
 ## Deploy (Netlify)
 1. Push to GitHub.
@@ -89,11 +108,11 @@ Everything below ships as a placeholder and needs real content before launch:
 - [ ] Default OG image → `public/og-default.png` (1200×630)
 - [ ] Favicon → already present, swap when brand mark lands
 
-**Config (`src/config.ts`)**
-- [ ] `contactBiraj.phone` / `contactBiraj.phoneHref` — Biraj phone number (needed for "Call Biraj" CTA)
-- [ ] `contact.linkedin` — LinkedIn URL
-- [ ] `contact.calendly` — Calendly embed URL (unlocks `/contact` embed + all CTA buttons)
-- [ ] `ga4MeasurementId` — Google Analytics 4 ID (e.g. `G-XXXXXXXXXX`)
+**Settings + contacts**
+- [ ] Biraj phone (`src/content/contacts.json` → `biraj.phone` / `biraj.phoneHref`) — needed for "Call Biraj" CTA
+- [ ] LinkedIn URL (`src/content/settings.json` → `linkedin`)
+- [ ] Calendly embed URL (`src/content/settings.json` → `calendly`) — unlocks `/contact` embed + all CTA buttons
+- [ ] GA4 measurement ID (`src/content/settings.json` → `ga4MeasurementId`, e.g. `G-XXXXXXXXXX`)
 
 **Content**
 - [ ] 1-2 additional short testimonials → add to `src/content/testimonials.json` (homepage shows 3-4, currently 2)

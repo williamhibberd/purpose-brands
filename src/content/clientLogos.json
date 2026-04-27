@@ -1,0 +1,18 @@
+[
+  { "id": "salcombe-gin", "name": "Salcombe Gin", "order": 1 },
+  { "id": "new-london-light", "name": "New London Light", "order": 2 },
+  { "id": "folc", "name": "Folc", "order": 3 },
+  { "id": "goodrays", "name": "Goodrays", "order": 4 },
+  { "id": "well-lab", "name": "Well Lab", "order": 5 },
+  { "id": "cru", "name": "Cru", "order": 6 },
+  { "id": "always-ready", "name": "Always Ready", "order": 7 },
+  { "id": "happy-heroes", "name": "Happy Heroes", "order": 8 },
+  { "id": "sports-laboratory", "name": "Sports Laboratory", "order": 9 },
+  { "id": "campkerala", "name": "CampKerala", "order": 10 },
+  { "id": "the-uncommon", "name": "The Uncommon", "order": 11 },
+  { "id": "common-functional-drinks", "name": "Common Functional Drinks", "order": 12 },
+  { "id": "salt-brewing", "name": "Salt Brewing", "order": 13 },
+  { "id": "willys-acv", "name": "Willy's ACV", "order": 14 },
+  { "id": "holos", "name": "Holos", "order": 15 },
+  { "id": "1936-biere", "name": "1936 Bière", "order": 16 }
+]

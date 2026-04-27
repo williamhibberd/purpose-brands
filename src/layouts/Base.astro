@@ -4,7 +4,7 @@ import { SEO } from 'astro-seo';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
-import { site, ga4MeasurementId } from '../config';
+import { getSettings } from '../lib/site';
 
 interface Props {
   title?: string;
@@ -14,16 +14,18 @@ interface Props {
   surface?: 'light' | 'dark';
 }
 
+const settings = await getSettings();
+
 const {
   title,
-  description = site.description,
+  description = settings.description,
   ogImage = '/og-default.png',
   noindex = false,
   surface = 'light',
 } = Astro.props;
 
-const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.tagline}`;
-const canonical = new URL(Astro.url.pathname, site.url).toString();
+const fullTitle = title ? `${title} — ${settings.name}` : `${settings.name} — ${settings.tagline}`;
+const canonical = new URL(Astro.url.pathname, settings.url).toString();
 ---
 
 <!doctype html>
@@ -44,15 +46,15 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
         basic: {
           title: fullTitle,
           type: 'website',
-          image: new URL(ogImage, site.url).toString(),
+          image: new URL(ogImage, settings.url).toString(),
           url: canonical,
         },
         optional: {
           description,
-          siteName: site.name,
+          siteName: settings.name,
         },
         image: {
-          alt: site.name,
+          alt: settings.name,
         },
       }}
       twitter={{ card: 'summary_large_image' }}
@@ -67,8 +69,8 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
     <Footer />
     <CookieBanner />
 
-    {ga4MeasurementId && (
-      <script is:inline define:vars={{ gaId: ga4MeasurementId }}>
+    {settings.ga4MeasurementId && (
+      <script is:inline define:vars={{ gaId: settings.ga4MeasurementId }}>
         function loadGa(id) {
           if (window.__gaLoaded) return;
           window.__gaLoaded = true;

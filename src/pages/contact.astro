@@ -1,29 +1,30 @@
 ---
+import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import CalendlyEmbed from '../components/CalendlyEmbed.astro';
-import { contact } from '../config';
+import { getSettings, getPrimaryContact } from '../lib/site';
+
+const contactPage = await getEntry('contact', 'contact');
+if (!contactPage) throw new Error('Missing contact content entry');
+const { title, description, head, calendlyLabel, form, details } = contactPage.data;
+
+const settings = await getSettings();
+const primary = await getPrimaryContact();
 ---
 
-<Base
-  surface="dark"
-  title="Contact"
-  description="Book a free 30-minute call with Purpose Brands and we'll have an honest conversation about whether Amazon is the right move for your brand."
->
+<Base surface="dark" title={title} description={description}>
   <Section tone="dark">
     <div class="contact-head">
-      <p class="eyebrow">Contact</p>
-      <h1>Fancy a chat?</h1>
-      <p class="contact-head__sub">
-        30 minutes. We'll tell you honestly whether Amazon's right for your
-        brand, and if we're the right team to help.
-      </p>
+      <p class="eyebrow">{head.eyebrow}</p>
+      <h1>{head.heading}</h1>
+      <p class="contact-head__sub">{head.sub}</p>
     </div>
 
     <div class="contact-grid">
       {/* Left: Calendly */}
       <div class="contact-col">
-        <p class="eyebrow contact-calendly-label">Book a time</p>
+        <p class="eyebrow contact-calendly-label">{calendlyLabel}</p>
         <CalendlyEmbed />
       </div>
 
@@ -39,46 +40,46 @@ import { contact } from '../config';
           <input type="hidden" name="form-name" value="contact" />
           <p class="contact-form__hp" aria-hidden="true">
             <label>
-              Don't fill this out if you're human:
+              {form.honeypotLabel}
               <input name="bot-field" tabindex="-1" autocomplete="off" />
             </label>
           </p>
 
-          <div class="contact-form__field">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" autocomplete="name" required />
-          </div>
+          {form.fields.map((f) => (
+            <div class="contact-form__field">
+              <label for={f.id}>
+                {f.label}
+                {f.optionalLabel && <span> {f.optionalLabel}</span>}
+              </label>
+              {f.type === 'textarea' ? (
+                <textarea id={f.id} name={f.id} rows={f.rows ?? 5} required={f.required}></textarea>
+              ) : (
+                <input
+                  id={f.id}
+                  name={f.id}
+                  type={f.type}
+                  autocomplete={f.autocomplete}
+                  required={f.required}
+                />
+              )}
+            </div>
+          ))}
 
-          <div class="contact-form__field">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" required />
-          </div>
-
-          <div class="contact-form__field">
-            <label for="brand">Brand name <span>(optional)</span></label>
-            <input id="brand" name="brand" type="text" autocomplete="organization" />
-          </div>
-
-          <div class="contact-form__field">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-          </div>
-
-          <button type="submit" class="contact-form__submit">Send message</button>
+          <button type="submit" class="contact-form__submit">{form.submitLabel}</button>
         </form>
 
         <ul class="contact-details" aria-label="Contact details">
           <li>
-            <span class="eyebrow">Email</span>
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            <span class="eyebrow">{details.emailLabel}</span>
+            <a href={`mailto:${primary.email}`}>{primary.email}</a>
           </li>
           <li>
-            <span class="eyebrow">Phone</span>
-            <a href={contact.phoneHref}>{contact.phone}</a>
+            <span class="eyebrow">{details.phoneLabel}</span>
+            <a href={primary.phoneHref}>{primary.phone}</a>
           </li>
           <li>
-            <span class="eyebrow">LinkedIn</span>
-            <a href={contact.linkedin} rel="me noopener">Connect on LinkedIn</a>
+            <span class="eyebrow">{details.linkedinLabel}</span>
+            <a href={settings.linkedin} rel="me noopener">{details.linkedinText}</a>
           </li>
         </ul>
       </div>

@@ -1,7 +1,9 @@
 ---
-import { contact } from '../config';
+import { getSettings, getPrimaryContact } from '../lib/site';
 
-const url = contact.calendly;
+const settings = await getSettings();
+const primary = await getPrimaryContact();
+const url = settings.calendly;
 ---
 
 {url ? (
@@ -16,8 +18,8 @@ const url = contact.calendly;
   <div class="calendly calendly--placeholder">
     <p>
       <strong>Calendly embed coming soon.</strong><br />
-      Phoebe is finalising the booking link — in the meantime, drop us a line
-      at <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+      {primary.name} is finalising the booking link — in the meantime, drop us a line
+      at <a href={`mailto:${primary.email}`}>{primary.email}</a>.
     </p>
   </div>
 )}

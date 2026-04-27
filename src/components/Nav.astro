@@ -1,6 +1,10 @@
 ---
 import Logo from '../assets/brand/logo.svg';
-import { nav, bookCallHref, site } from '../config';
+import { getSettings, getNavItems, bookCallHref } from '../lib/site';
+
+const settings = await getSettings();
+const navItems = await getNavItems();
+const ctaHref = bookCallHref(settings.calendly);
 
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) =>
@@ -9,27 +13,27 @@ const isActive = (href: string) =>
 
 <header class="site-nav">
   <div class="container-site site-nav__inner">
-    <a href="/" class="site-nav__logo" aria-label={`${site.name} — home`}>
+    <a href="/" class="site-nav__logo" aria-label={`${settings.name} — home`}>
       <Logo class="site-nav__mark" role="img" aria-hidden="true" />
     </a>
 
     <nav class="site-nav__links" aria-label="Primary">
       <ul>
-        {nav.map((item) => (
+        {navItems.map((item) => (
           <li>
             <a
-              href={item.href}
-              class:list={['site-nav__link', isActive(item.href) && 'is-active']}
-              aria-current={isActive(item.href) ? 'page' : undefined}
+              href={item.data.href}
+              class:list={['site-nav__link', isActive(item.data.href) && 'is-active']}
+              aria-current={isActive(item.data.href) ? 'page' : undefined}
             >
-              {item.label}
+              {item.data.label}
             </a>
           </li>
         ))}
       </ul>
     </nav>
 
-    <a href={bookCallHref} class="site-nav__cta">Let's talk</a>
+    <a href={ctaHref} class="site-nav__cta">Let's talk</a>
 
     <button
       type="button"
@@ -46,19 +50,19 @@ const isActive = (href: string) =>
 
   <div id="mobile-nav" class="site-nav__mobile" hidden>
     <ul>
-      {nav.map((item) => (
+      {navItems.map((item) => (
         <li>
-          <a href={item.href} class="site-nav__mobile-link">
-            {item.label}
+          <a href={item.data.href} class="site-nav__mobile-link">
+            {item.data.label}
           </a>
         </li>
       ))}
     </ul>
-    <a href={bookCallHref} class="site-nav__mobile-cta">Let's talk</a>
+    <a href={ctaHref} class="site-nav__mobile-cta">Let's talk</a>
   </div>
 </header>
 
-<a href={bookCallHref} class="floating-cta">Let's talk</a>
+<a href={ctaHref} class="floating-cta">Let's talk</a>
 
 <style>
   .site-nav {

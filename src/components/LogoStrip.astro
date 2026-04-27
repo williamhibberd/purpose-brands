@@ -1,5 +1,5 @@
 ---
-import { clientLogos } from '../config';
+import { getClientLogos } from '../lib/site';
 
 interface Props {
   label?: string;
@@ -7,8 +7,8 @@ interface Props {
 
 const { label = 'Trusted by brands who stand for something' } = Astro.props;
 
-// Duplicate list for seamless marquee loop
-const logos = [...clientLogos, ...clientLogos];
+const logoEntries = await getClientLogos();
+const logos = [...logoEntries, ...logoEntries];
 ---
 
 <div class="logo-strip">
@@ -16,8 +16,8 @@ const logos = [...clientLogos, ...clientLogos];
   <div class="logo-strip__track-wrap">
     <ul class="logo-strip__track" aria-label="Client logos">
       {logos.map((logo, i) => (
-        <li class="logo-strip__item" aria-hidden={i >= clientLogos.length ? 'true' : undefined}>
-          <span class="logo-strip__placeholder">{logo.name}</span>
+        <li class="logo-strip__item" aria-hidden={i >= logoEntries.length ? 'true' : undefined}>
+          <span class="logo-strip__placeholder">{logo.data.name}</span>
         </li>
       ))}
     </ul>

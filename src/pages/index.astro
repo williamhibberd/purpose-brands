@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
@@ -9,7 +9,16 @@ import NumberedList from '../components/NumberedList.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import CtaBlock from '../components/CtaBlock.astro';
-import { bookCallHref, contact } from '../config';
+import { getSettings, getPrimaryContact, bookCallHref } from '../lib/site';
+
+const home = await getEntry('home', 'home');
+if (!home) throw new Error('Missing home content entry');
+const { hero, proofStats, testimonialsSection, whoWeAre, howItWorks, services, caseStudies: caseStudiesSection } =
+  home.data;
+
+const settings = await getSettings();
+const primary = await getPrimaryContact();
+const ctaHref = bookCallHref(settings.calendly);
 
 const caseStudies = (await getCollection('case-studies', (c) => c.data.featured)).sort(
   (a, b) => a.data.order - b.data.order,
@@ -18,68 +27,23 @@ const caseStudies = (await getCollection('case-studies', (c) => c.data.featured)
 const testimonials = (await getCollection('testimonials', (t) => t.data.featured)).sort(
   (a, b) => a.data.order - b.data.order,
 );
-
-const proofStats = [
-  { value: '200+', label: 'units sold per day' },
-  { value: '8x', label: 'sales growth' },
-  { value: '12', label: 'months as Best Seller' },
-];
-
-const howItWorks = [
-  {
-    title: 'We have a chat',
-    body: "30 minutes. We'll ask about your brand, your Amazon, and what's not working.",
-  },
-  {
-    title: 'We do a free audit',
-    body: "We look at your listings, your ads, your storefront, and tell you what we'd change.",
-  },
-  {
-    title: "If we're a fit, we get to work",
-    body: 'Same day if you want. No 12-week onboarding.',
-  },
-];
-
-const services = [
-  {
-    title: 'We run your Amazon',
-    body: 'Day-to-day management of your Vendor or Seller account. Weekly updates. Monthly reporting. All the boring stuff that actually matters, handled.',
-  },
-  {
-    title: "We spend your ad budget like it's ours",
-    body: "Because wasting money on ads that don't convert is painful. We run your Sponsored Products, Brands, and Display — and we actually watch what's happening.",
-  },
-  {
-    title: 'We make your Amazon look like your brand',
-    body: "Storefronts, A+ content, product pages. Your Amazon should look as good as your website. Right now, it probably doesn't.",
-  },
-  {
-    title: 'We get your products found',
-    body: "Titles, bullets, keywords, images — optimised so people actually find you when they search. No dark arts. Just the work.",
-  },
-];
 ---
 
 <Base surface="dark">
   {/* Hero */}
   <section class="hero">
     <div class="container-site hero__inner">
-      <h1 class="hero__headline">
-        "They get shit done."
-      </h1>
-      <p class="hero__attribution">— Eoin Keenan, Founder, Goodrays</p>
-      <p class="hero__sub">
-        We're Phoebe and Biraj. We run Amazon for brilliant brands.
-        Two people. 15 years. No juniors.
-      </p>
+      <h1 class="hero__headline">{hero.headline}</h1>
+      <p class="hero__attribution">{hero.attribution}</p>
+      <p class="hero__sub">{hero.sub}</p>
       <div class="hero__actions">
-        <Button href={bookCallHref} variant="primary" size="lg">Let's have a chat</Button>
-        <Button href="/work" variant="ghost">See the results →</Button>
+        <Button href={ctaHref} variant="primary" size="lg">{hero.primaryCtaLabel}</Button>
+        <Button href={hero.secondaryCtaHref} variant="ghost">{hero.secondaryCtaLabel}</Button>
       </div>
       <p class="hero__contact">
-        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        <a href={`mailto:${primary.email}`}>{primary.email}</a>
         <span aria-hidden="true">·</span>
-        <a href={contact.phoneHref}>{contact.phone}</a>
+        <a href={primary.phoneHref}>{primary.phone}</a>
       </p>
     </div>
   </section>
@@ -97,8 +61,8 @@ const services = [
   {/* Client voices */}
   <Section tone="dark">
     <div class="section-head">
-      <p class="eyebrow">In their words</p>
-      <h2>Don't take our word for it.</h2>
+      <p class="eyebrow">{testimonialsSection.eyebrow}</p>
+      <h2>{testimonialsSection.heading}</h2>
     </div>
     <div class="testimonial-grid">
       {testimonials.map((t) => (
@@ -116,22 +80,13 @@ const services = [
   <Section tone="dark">
     <div class="who-we-are">
       <div class="who-we-are__photo">
-        <span class="who-we-are__placeholder" aria-hidden="true">Phoebe & Biraj</span>
+        <span class="who-we-are__placeholder" aria-hidden="true">{whoWeAre.photoLabel}</span>
       </div>
       <div class="who-we-are__body">
-        <p class="eyebrow">Who we are</p>
-        <h2>We're Phoebe and Biraj.</h2>
-        <p>
-          Phoebe spent 15 years at Moët Hennessy, Heineken, and Belvedere.
-          Biraj built an Amazon brand from nothing and sold it for seven figures.
-          We started Purpose Brands because every Amazon agency we met was either
-          too big to care or too small to deliver.
-        </p>
-        <p>
-          We only work with food, drink, and wellness brands. We only work on Amazon.
-          And you only ever work with us. That's it.
-        </p>
-        <Button href="/about" variant="ghost">More about us →</Button>
+        <p class="eyebrow">{whoWeAre.eyebrow}</p>
+        <h2>{whoWeAre.heading}</h2>
+        {whoWeAre.body.map((p) => <p>{p}</p>)}
+        <Button href={whoWeAre.ctaHref} variant="ghost">{whoWeAre.ctaLabel}</Button>
       </div>
     </div>
   </Section>
@@ -139,29 +94,29 @@ const services = [
   {/* How it works */}
   <Section tone="dark">
     <div class="section-head">
-      <p class="eyebrow">How it works</p>
-      <h2>Three steps. No faff.</h2>
+      <p class="eyebrow">{howItWorks.eyebrow}</p>
+      <h2>{howItWorks.heading}</h2>
     </div>
-    <NumberedList items={howItWorks} columns={3} />
+    <NumberedList items={howItWorks.items} columns={3} />
   </Section>
 
   {/* What we do */}
   <Section tone="dark">
     <div class="section-head">
-      <p class="eyebrow">What we do</p>
-      <h2>Four things, done properly.</h2>
+      <p class="eyebrow">{services.eyebrow}</p>
+      <h2>{services.heading}</h2>
     </div>
-    <NumberedList items={services} columns={4} />
+    <NumberedList items={services.items} columns={4} />
   </Section>
 
   {/* Results */}
   <Section tone="dark">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow">Selected work</p>
-        <h2>The receipts.</h2>
+        <p class="eyebrow">{caseStudiesSection.eyebrow}</p>
+        <h2>{caseStudiesSection.heading}</h2>
       </div>
-      <Button href="/work" variant="secondary">All case studies →</Button>
+      <Button href={caseStudiesSection.ctaHref} variant="secondary">{caseStudiesSection.ctaLabel}</Button>
     </div>
     <div class="case-grid">
       {caseStudies.map((c) => (
