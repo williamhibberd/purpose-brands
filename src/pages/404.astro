@@ -1,19 +1,22 @@
 ---
+import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Button from '../components/Button.astro';
+
+const notFound = await getEntry('notFound', 'notFound');
+if (!notFound) throw new Error('Missing notFound content entry');
+const { title, eyebrow, heading, sub, primaryCta, secondaryCta } = notFound.data;
 ---
 
-<Base surface="dark" title="Not found" noindex>
+<Base surface="dark" title={title} noindex>
   <section class="notfound">
     <div class="container-site">
-      <p class="eyebrow">404</p>
-      <h1>We couldn't find that page.</h1>
-      <p class="notfound__sub">
-        It may have moved, or it never existed. Either way — nothing to see here.
-      </p>
+      <p class="eyebrow">{eyebrow}</p>
+      <h1>{heading}</h1>
+      <p class="notfound__sub">{sub}</p>
       <div class="notfound__actions">
-        <Button href="/" variant="primary" size="lg">Back to home</Button>
-        <Button href="/work" variant="ghost">See our work →</Button>
+        <Button href={primaryCta.href} variant="primary" size="lg">{primaryCta.label}</Button>
+        <Button href={secondaryCta.href} variant="ghost">{secondaryCta.label}</Button>
       </div>
     </div>
   </section>

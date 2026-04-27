@@ -1,8 +1,12 @@
 ---
+import { getEntry } from 'astro:content';
 import { getSettings, getPrimaryContact } from '../lib/site';
 
 const settings = await getSettings();
 const primary = await getPrimaryContact();
+const contactPage = await getEntry('contact', 'contact');
+if (!contactPage) throw new Error('Missing contact content entry');
+const { iframeTitle, placeholderHeading, placeholderBody } = contactPage.data.calendly;
 const url = settings.calendly;
 ---
 
@@ -10,16 +14,15 @@ const url = settings.calendly;
   <div class="calendly">
     <iframe
       src={url}
-      title="Book a call with Purpose Brands"
+      title={iframeTitle}
       loading="lazy"
     ></iframe>
   </div>
 ) : (
   <div class="calendly calendly--placeholder">
     <p>
-      <strong>Calendly embed coming soon.</strong><br />
-      {primary.name} is finalising the booking link — in the meantime, drop us a line
-      at <a href={`mailto:${primary.email}`}>{primary.email}</a>.
+      <strong>{placeholderHeading}</strong><br />
+      {primary.name} {placeholderBody} <a href={`mailto:${primary.email}`}>{primary.email}</a>.
     </p>
   </div>
 )}

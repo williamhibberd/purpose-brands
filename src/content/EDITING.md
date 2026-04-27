@@ -29,6 +29,8 @@ Single record. Edit values, keep keys.
 | `ga4MeasurementId` | Google Analytics 4 ID (e.g. `G-XXXXXXXXXX`). Leave empty to disable analytics.                                     |
 | `calendly`         | Calendly embed URL. When empty, all "Let's talk" CTAs route to `/contact`; when set, they go straight to Calendly. |
 | `linkedin`         | LinkedIn URL used in footer + contact page                                                                         |
+| `cookies`          | Cookie banner copy: `body`, `declineLabel`, `allowLabel`                                                           |
+| `cta`              | Defaults for the bottom-of-page CTA block: `defaultHeadline`, `defaultSubtext`, `defaultLabel`, `dualCtaPrefix` (e.g. `"Call "` → "Call Phoebe") |
 
 ### `contacts.json` — Phoebe + Biraj contact records
 
@@ -93,16 +95,32 @@ Each file is one page. Structure mirrors the page sections.
 - `title` / `description` — meta
 - `head` — eyebrow, heading, sub-paragraph
 - `cta` — bottom-of-page CTA headline + subtext
+- `labels` — text used across the case study cards and detail pages:
+  - `challenge` / `whatWeDid` / `results` — section headings on `/work` cards
+  - `situation` — heading on individual case study pages (replaces `challenge` heading there)
+  - `readMore` — "Read full case study →" link label
+  - `backLink` — "← All work" link on a case study detail page
+  - `pagerPrev` / `pagerNext` — eyebrow labels for the prev/next pager
 
 ### `pages/contact.json`
 
 - `title` / `description` — meta
 - `head` — page heading + sub-paragraph
 - `calendlyLabel` — eyebrow above the Calendly embed
+- `calendly` — Calendly iframe + placeholder copy:
+  - `iframeTitle` — accessible title for the embedded iframe
+  - `placeholderHeading` — bold line shown when no Calendly URL is set
+  - `placeholderBody` — body sentence (rendered as `[name] [body] [email]`)
 - `form.fields` — form field list. **Don't change `id` values** — they map to Netlify form submissions
 - `form.submitLabel` — submit button text
 - `form.honeypotLabel` — anti-spam label, hidden from view
 - `details` — labels for the email / phone / LinkedIn list
+
+### `pages/notFound.json`
+
+- `title` — `<title>` for the 404 page
+- `eyebrow` / `heading` / `sub` — page copy
+- `primaryCta` / `secondaryCta` — `{ label, href }` for the two buttons
 
 ---
 

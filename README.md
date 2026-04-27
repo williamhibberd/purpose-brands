@@ -36,8 +36,9 @@ src/
 │   ├── pages/
 │   │   ├── home.json          # Homepage copy (hero, sections, services)
 │   │   ├── about.json         # About page (intro, bios, SAS)
-│   │   ├── work.json          # /work index head + bottom CTA copy
-│   │   └── contact.json       # /contact head, form labels, detail labels
+│   │   ├── work.json          # /work index head, bottom CTA, case study labels
+│   │   ├── contact.json       # /contact head, form labels, Calendly placeholder
+│   │   └── notFound.json      # 404 page copy
 │   ├── case-studies/          # One .md per case study (with heroStat frontmatter)
 │   └── testimonials.json      # Testimonial list (with shortQuote for homepage)
 ├── components/
@@ -73,14 +74,16 @@ See **[`src/content/EDITING.md`](./src/content/EDITING.md)** for a full per-file
 | To change… | Edit |
 |---|---|
 | Site name / URL / Calendly URL / GA4 ID / LinkedIn | `src/content/settings.json` |
+| Cookie banner copy + default CTA copy | `src/content/settings.json` |
 | Phoebe or Biraj email/phone | `src/content/contacts.json` |
 | Top nav links | `src/content/navItems.json` |
 | Client logo strip | `src/content/clientLogos.json` |
 | Footer tagline / SAS badge / meta line | `src/content/footer.json` |
 | Homepage copy (hero, services, etc.) | `src/content/pages/home.json` |
 | About page (bios, intro, SAS section) | `src/content/pages/about.json` |
-| /work index intro + CTA | `src/content/pages/work.json` |
-| /contact intro + form labels | `src/content/pages/contact.json` |
+| /work index intro + case study section labels | `src/content/pages/work.json` |
+| /contact intro + form labels + Calendly placeholder | `src/content/pages/contact.json` |
+| 404 page copy | `src/content/pages/notFound.json` |
 | Case studies (cards + detail pages) | `src/content/case-studies/*.md` |
 | Testimonials | `src/content/testimonials.json` |
 

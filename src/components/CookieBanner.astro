@@ -1,16 +1,15 @@
 ---
-// GDPR cookie banner. Stores consent in localStorage under `pb_consent`.
-// GA4 is not loaded until consent is granted (hook up in Base.astro when GA4 ID lands).
+import { getSettings } from '../lib/site';
+
+const settings = await getSettings();
+const { body, declineLabel, allowLabel } = settings.cookies;
 ---
 
 <div id="cookie-banner" class="cookie-banner" role="region" aria-label="Cookies" hidden>
-  <p>
-    We use cookies to measure how people use this site. Nothing creepy — just
-    anonymous analytics to help us improve.
-  </p>
+  <p>{body}</p>
   <div class="cookie-banner__actions">
-    <button type="button" data-consent="denied">Decline</button>
-    <button type="button" data-consent="granted" class="is-primary">Allow</button>
+    <button type="button" data-consent="denied">{declineLabel}</button>
+    <button type="button" data-consent="granted" class="is-primary">{allowLabel}</button>
   </div>
 </div>
 

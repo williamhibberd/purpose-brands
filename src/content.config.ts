@@ -102,6 +102,16 @@ const work = defineCollection({
     description: z.string(),
     head: sectionHead.extend({ sub: z.string() }),
     cta: z.object({ headline: z.string(), subtext: z.string() }),
+    labels: z.object({
+      challenge: z.string(),
+      whatWeDid: z.string(),
+      results: z.string(),
+      readMore: z.string(),
+      backLink: z.string(),
+      situation: z.string(),
+      pagerPrev: z.string(),
+      pagerNext: z.string(),
+    }),
   }),
 });
 
@@ -112,6 +122,11 @@ const contact = defineCollection({
     description: z.string(),
     head: sectionHead.extend({ sub: z.string() }),
     calendlyLabel: z.string(),
+    calendly: z.object({
+      iframeTitle: z.string(),
+      placeholderHeading: z.string(),
+      placeholderBody: z.string(),
+    }),
     form: z.object({
       honeypotLabel: z.string(),
       fields: z.array(
@@ -146,6 +161,17 @@ const settings = defineCollection({
     ga4MeasurementId: z.string(),
     calendly: z.string(),
     linkedin: z.string(),
+    cookies: z.object({
+      body: z.string(),
+      declineLabel: z.string(),
+      allowLabel: z.string(),
+    }),
+    cta: z.object({
+      defaultHeadline: z.string(),
+      defaultSubtext: z.string(),
+      defaultLabel: z.string(),
+      dualCtaPrefix: z.string(),
+    }),
   }),
 });
 
@@ -177,6 +203,18 @@ const clientLogos = defineCollection({
   }),
 });
 
+const notFound = defineCollection({
+  loader: file('./src/content/pages/notFound.json'),
+  schema: z.object({
+    title: z.string(),
+    eyebrow: z.string(),
+    heading: z.string(),
+    sub: z.string(),
+    primaryCta: z.object({ label: z.string(), href: z.string() }),
+    secondaryCta: z.object({ label: z.string(), href: z.string() }),
+  }),
+});
+
 const footer = defineCollection({
   loader: file('./src/content/footer.json'),
   schema: z.object({
@@ -196,6 +234,7 @@ export const collections = {
   about,
   work,
   contact,
+  notFound,
   settings,
   contacts,
   navItems,

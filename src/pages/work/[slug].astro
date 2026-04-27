@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Section from '../../components/Section.astro';
 import CtaBlock from '../../components/CtaBlock.astro';
@@ -26,12 +26,16 @@ interface Props {
 
 const { entry, prev, next } = Astro.props;
 const c = entry.data;
+
+const workPage = await getEntry('work', 'work');
+if (!workPage) throw new Error('Missing work content entry');
+const labels = workPage.data.labels;
 ---
 
 <Base surface="dark" title={c.title} description={c.headline}>
   <article>
     <Section tone="dark">
-      <a href="/work" class="back-link">← All work</a>
+      <a href="/work" class="back-link">{labels.backLink}</a>
 
       {c.heroStat && (
         <div class="cs-hero-stat">
@@ -55,17 +59,17 @@ const c = entry.data;
     <Section tone="dark">
       <div class="cs-body">
         <div class="cs-block">
-          <h2>The situation</h2>
+          <h2>{labels.situation}</h2>
           <p>{c.challenge}</p>
         </div>
 
         <div class="cs-block">
-          <h2>What we did</h2>
+          <h2>{labels.whatWeDid}</h2>
           <p>{c.whatWeDid}</p>
         </div>
 
         <div class="cs-block">
-          <h2>The results</h2>
+          <h2>{labels.results}</h2>
           <ul>
             {c.results.map((r) => <li>{r}</li>)}
           </ul>
@@ -85,13 +89,13 @@ const c = entry.data;
         <nav class="cs-pager" aria-label="Case study navigation">
           {prev ? (
             <a href={`/work/${prev.id}`} class="cs-pager__link">
-              <span class="eyebrow">Previous</span>
+              <span class="eyebrow">{labels.pagerPrev}</span>
               <span class="cs-pager__title">← {prev.data.brand}</span>
             </a>
           ) : <span></span>}
           {next && (
             <a href={`/work/${next.id}`} class="cs-pager__link cs-pager__link--end">
-              <span class="eyebrow">Next</span>
+              <span class="eyebrow">{labels.pagerNext}</span>
               <span class="cs-pager__title">{next.data.brand} →</span>
             </a>
           )}

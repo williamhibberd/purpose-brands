@@ -11,6 +11,16 @@
     "cta": {
       "headline": "Want to be next?",
       "subtext": "Book a call. We'll have a look at your Amazon and tell you what we'd do. No charge, no commitment."
+    },
+    "labels": {
+      "challenge": "The challenge",
+      "whatWeDid": "What we did",
+      "results": "The results",
+      "readMore": "Read full case study →",
+      "backLink": "← All work",
+      "situation": "The situation",
+      "pagerPrev": "Previous",
+      "pagerNext": "Next"
     }
   }
 ]

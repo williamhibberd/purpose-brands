@@ -1,4 +1,6 @@
 ---
+import { getEntry } from 'astro:content';
+
 interface Props {
   brand: string;
   regions: string[];
@@ -26,6 +28,10 @@ const {
   href,
   reverse = false,
 } = Astro.props;
+
+const workPage = await getEntry('work', 'work');
+if (!workPage) throw new Error('Missing work content entry');
+const labels = workPage.data.labels;
 ---
 
 <article class:list={['case-long', reverse && 'case-long--reverse']}>
@@ -42,17 +48,17 @@ const {
     <p class="case-long__meta">{regions.join(', ')} &nbsp;|&nbsp; {engagement}</p>
 
     <div class="case-long__block">
-      <h4>The challenge</h4>
+      <h4>{labels.challenge}</h4>
       <p>{challenge}</p>
     </div>
 
     <div class="case-long__block">
-      <h4>What we did</h4>
+      <h4>{labels.whatWeDid}</h4>
       <p>{whatWeDid}</p>
     </div>
 
     <div class="case-long__block">
-      <h4>The results</h4>
+      <h4>{labels.results}</h4>
       <ul>
         {results.map((r) => <li>{r}</li>)}
       </ul>
@@ -66,7 +72,7 @@ const {
     )}
 
     {href && (
-      <a href={href} class="case-long__link">Read full case study →</a>
+      <a href={href} class="case-long__link">{labels.readMore}</a>
     )}
   </div>
 </article>

@@ -9,6 +9,11 @@
       "sub": "30 minutes. We'll tell you honestly whether Amazon's right for your brand, and if we're the right team to help."
     },
     "calendlyLabel": "Book a time",
+    "calendly": {
+      "iframeTitle": "Book a call with Purpose Brands",
+      "placeholderHeading": "Calendly embed coming soon.",
+      "placeholderBody": "is finalising the booking link — in the meantime, drop us a line at"
+    },
     "form": {
       "honeypotLabel": "Don't fill this out if you're human:",
       "fields": [

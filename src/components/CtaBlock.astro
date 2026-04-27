@@ -8,16 +8,16 @@ interface Props {
   dualCta?: boolean;
 }
 
-const {
-  headline = 'Your brand\'s too good for a bad Amazon page.',
-  subtext = 'Book a free call with us. No pressure, no pitch — just a conversation about whether we\'re right for you.',
-  dualCta = false,
-} = Astro.props;
-
 const settings = await getSettings();
 const primary = await getPrimaryContact();
 const secondary = await getSecondaryContact();
 const ctaHref = bookCallHref(settings.calendly);
+
+const {
+  headline = settings.cta.defaultHeadline,
+  subtext = settings.cta.defaultSubtext,
+  dualCta = false,
+} = Astro.props;
 ---
 
 <div class="cta-block">
@@ -26,11 +26,11 @@ const ctaHref = bookCallHref(settings.calendly);
   <div class="cta-block__actions">
     {dualCta ? (
       <>
-        <Button href={primary.phoneHref} variant="primary" size="lg">Call {primary.name}</Button>
-        <Button href={secondary.phoneHref} variant="secondary" size="lg">Call {secondary.name}</Button>
+        <Button href={primary.phoneHref} variant="primary" size="lg">{settings.cta.dualCtaPrefix}{primary.name}</Button>
+        <Button href={secondary.phoneHref} variant="secondary" size="lg">{settings.cta.dualCtaPrefix}{secondary.name}</Button>
       </>
     ) : (
-      <Button href={ctaHref} variant="primary" size="lg">Let's talk</Button>
+      <Button href={ctaHref} variant="primary" size="lg">{settings.cta.defaultLabel}</Button>
     )}
   </div>
   <p class="cta-block__contact">
