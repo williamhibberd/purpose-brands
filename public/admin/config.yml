@@ -4,7 +4,7 @@
 
 backend:
     name: github
-    repo: willrhibberd/purpose-brands # ← change to your-github-org/purpose-brands
+    repo: williamhibberd/purpose-brands # GitHub <owner>/<repo>; case-sensitive
     branch: master
     # OAuth handler runs as a Netlify Edge Function in this same site.
     base_url: https://purpose-brands.netlify.app/
