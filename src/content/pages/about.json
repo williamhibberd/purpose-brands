@@ -2,7 +2,6 @@
   "title": "About",
   "description": "We started Purpose Brands because brilliant food, drink, and wellness brands deserve better than a spreadsheet-driven Amazon agency.",
   "intro": {
-    "eyebrow": "About",
     "heading": "We built the agency we wished existed.",
     "body": [
       "Every Amazon agency we met was either a massive machine that forgot your name after the pitch, or a one-person show making it up as they went.",
@@ -12,7 +11,6 @@
   },
   "bios": [
     {
-      "eyebrow": "Founder",
       "name": "Phoebe Bocchinelli",
       "photoLabel": "Phoebe",
       "lede": "15 years in consumer brands. Worked with Moët Hennessy, Veuve Clicquot, Heineken, and Belvedere Vodka. 6 of those years specifically on Amazon across the UK and US.",
@@ -23,7 +21,6 @@
       "reverse": false
     },
     {
-      "eyebrow": "Co-founder",
       "name": "Biraj Parmar",
       "photoLabel": "Biraj",
       "lede": "Built an Amazon and D2C brand from scratch. Sold it for seven figures in 2021. Stayed on as a brand consultant because he couldn't stop tinkering.",
@@ -35,6 +32,7 @@
     }
   ],
   "sas": {
-    "body": "We're a Surfers Against Sewage Ocean Network member. We live on the South Devon coast. Protecting our waters isn't a CSR box-tick — it's personal."
+    "body": "We're a Surfers Against Sewage Ocean Network member. We live on the South Devon coast. Protecting our waters isn't a CSR box-tick — it's personal.",
+    "imageAlt": "Surfers Against Sewage — South Devon coast"
   }
 }

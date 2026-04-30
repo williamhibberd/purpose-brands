@@ -1,7 +1,6 @@
 {
   "hero": {
     "headline": "Your Amazon team, sorted.",
-    "attribution": "-",
     "sub": "We're Phoebe and Biraj. We run Amazon for brilliant brands. Two people. 15 years. No juniors. We're a two person Amazon agency that handles the lot. Listings, ads, cases, content, strategy. If it touches Amazon, it's our job.",
     "primaryCtaLabel": "Book a 10 minute call",
     "secondaryCtaLabel": "See our results →",
@@ -22,11 +21,9 @@
     }
   ],
   "testimonialsSection": {
-    "eyebrow": "In their words",
     "heading": "Don't take our word for it."
   },
   "whoWeAre": {
-    "eyebrow": "Who we are",
     "heading": "We're Phoebe and Biraj.",
     "photoLabel": "Phoebe & Biraj",
     "body": [
@@ -37,7 +34,6 @@
     "ctaHref": "/about"
   },
   "howItWorks": {
-    "eyebrow": "Googling 'how to fix Amazon listing.'",
     "heading": "Three steps. No faff.",
     "items": [
       {
@@ -55,7 +51,6 @@
     ]
   },
   "services": {
-    "eyebrow": "What we do",
     "heading": "Four things, done properly.",
     "items": [
       {
@@ -77,7 +72,6 @@
     ]
   },
   "caseStudies": {
-    "eyebrow": "Selected work",
     "heading": "The receipts.",
     "ctaLabel": "All case studies →",
     "ctaHref": "/work"

@@ -3,6 +3,7 @@ import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import CtaBlock from '../components/CtaBlock.astro';
+import ImageOverlay from '../components/ImageOverlay.astro';
 
 const about = await getEntry('about', 'about');
 if (!about) throw new Error('Missing about content entry');
@@ -13,7 +14,6 @@ const { title, description, intro, bios, sas } = about.data;
   {/* Intro */}
   <Section tone="dark">
     <div class="about-intro">
-      <p class="eyebrow">{intro.eyebrow}</p>
       <h1>{intro.heading}</h1>
       <div class="about-intro__body">
         {intro.body.map((p) => <p>{p}</p>)}
@@ -28,7 +28,6 @@ const { title, description, intro, bios, sas } = about.data;
           <span>{bio.photoLabel}</span>
         </div>
         <div class="bio__body">
-          <p class="eyebrow">{bio.eyebrow}</p>
           <h2>{bio.name}</h2>
           <p class="bio__lede">{bio.lede}</p>
           {bio.body.map((p) => <p>{p}</p>)}
@@ -41,11 +40,7 @@ const { title, description, intro, bios, sas } = about.data;
   ))}
 
   {/* SAS */}
-  <Section tone="dark">
-    <div class="sas">
-      <p>{sas.body}</p>
-    </div>
-  </Section>
+  <ImageOverlay image={sas.image} imageAlt={sas.imageAlt} body={sas.body} cta={sas.cta} />
 
   {/* Bottom CTA */}
   <Section tone="dark">
@@ -146,7 +141,8 @@ const { title, description, intro, bios, sas } = about.data;
   }
 
   .bio__trust li {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
+    font-weight: 700;
     font-size: 0.75rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -156,16 +152,4 @@ const { title, description, intro, bios, sas } = about.data;
     border-radius: 999px;
   }
 
-  .sas {
-    max-width: 48ch;
-    padding-top: 2rem;
-    border-top: 1px solid var(--color-hairline-dark);
-  }
-
-  .sas p {
-    font-size: 1.125rem;
-    line-height: 1.65;
-    color: rgba(250, 250, 247, 0.75);
-    margin: 0;
-  }
 </style>

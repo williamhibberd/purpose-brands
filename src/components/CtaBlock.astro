@@ -1,22 +1,17 @@
 ---
 import Button from './Button.astro';
-import { getSettings, getPrimaryContact, getSecondaryContact, bookCallHref } from '../lib/site';
+import { getSettings } from '../lib/site';
 
 interface Props {
   headline?: string;
   subtext?: string;
-  dualCta?: boolean;
 }
 
 const settings = await getSettings();
-const primary = await getPrimaryContact();
-const secondary = await getSecondaryContact();
-const ctaHref = bookCallHref(settings.calendly);
 
 const {
   headline = settings.cta.defaultHeadline,
   subtext = settings.cta.defaultSubtext,
-  dualCta = false,
 } = Astro.props;
 ---
 
@@ -24,20 +19,8 @@ const {
   <h2 class="cta-block__headline">{headline}</h2>
   <p class="cta-block__subtext">{subtext}</p>
   <div class="cta-block__actions">
-    {dualCta ? (
-      <>
-        <Button href={primary.phoneHref} variant="primary" size="lg">{settings.cta.dualCtaPrefix}{primary.name}</Button>
-        <Button href={secondary.phoneHref} variant="secondary" size="lg">{settings.cta.dualCtaPrefix}{secondary.name}</Button>
-      </>
-    ) : (
-      <Button href={ctaHref} variant="primary" size="lg">{settings.cta.defaultLabel}</Button>
-    )}
+    <Button href={settings.cta.href} variant="primary" size="lg">{settings.cta.label}</Button>
   </div>
-  <p class="cta-block__contact">
-    <a href={`mailto:${primary.email}`}>{primary.email}</a>
-    <span aria-hidden="true">&middot;</span>
-    <a href={primary.phoneHref}>{primary.phone}</a>
-  </p>
 </div>
 
 <style>
@@ -71,19 +54,5 @@ const {
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2.5rem;
-  }
-
-  .cta-block__contact {
-    font-size: 0.9375rem;
-    color: var(--color-mute);
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    margin: 0;
-  }
-
-  .cta-block__contact a:hover {
-    color: var(--color-brand-purple);
   }
 </style>

@@ -11,7 +11,7 @@ Built with [Astro](https://astro.build) 6, Tailwind v4, deployed to Netlify.
 - **astro-seo** — meta/OG tags
 - **@astrojs/sitemap** — auto sitemap
 - **Netlify Forms** — contact form, no backend code
-- **Self-hosted Maax Raw + Maax Mono** (`src/assets/fonts/`, 205TF) — bundled + hashed by Vite
+- **Self-hosted Maax Raw** (`src/assets/fonts/`, 205TF) — bundled + hashed by Vite
 
 ## Commands
 | Command | Action |
@@ -43,9 +43,10 @@ src/
 │   └── case-studies/           # One .md per case study (with heroStat frontmatter)
 ├── components/
 │   ├── ProofBar.astro         # Stat bar: large numbers + labels
-│   ├── CtaBlock.astro         # CTA block with optional dualCta mode
+│   ├── CtaBlock.astro         # CTA block, single button driven by settings.cta
 │   ├── CaseStudyCard.astro    # Card with optional heroStat display
 │   ├── TestimonialCard.astro  # Quote card with shortQuote support
+│   ├── ImageOverlay.astro     # Full-bleed image w/ overlaid text + optional CTA
 │   ├── Nav.astro              # Sticky header, "Let's talk" CTA
 │   ├── Footer.astro           # Site footer
 │   ├── Button.astro           # Primary/secondary/ghost variants
@@ -136,20 +137,23 @@ Everything below ships as a placeholder and needs real content before launch:
 - [ ] Favicon → already present, swap when brand mark lands
 
 **Settings + contacts**
-- [ ] Biraj phone (`src/content/contacts.json` → `biraj.phone` / `biraj.phoneHref`) — needed for "Call Biraj" CTA
-- [ ] LinkedIn URL (`src/content/settings.json` → `linkedin`)
-- [ ] Calendly embed URL (`src/content/settings.json` → `calendly`) — unlocks `/contact` embed + all CTA buttons
-- [ ] GA4 measurement ID (`src/content/settings.json` → `ga4MeasurementId`, e.g. `G-XXXXXXXXXX`)
+- [ ] Biraj phone (`src/content/contacts/biraj.json` → `phone` / `phoneHref`) — used by Footer
+- [ ] LinkedIn URL (`src/content/settings/site.json` → `linkedin`)
+- [ ] Calendly embed URL (`src/content/settings/site.json` → `calendly`) — unlocks `/contact` embed
+- [ ] Default CTA target (`src/content/settings/site.json` → `cta.href`, defaults to `/contact`)
+- [ ] GA4 measurement ID (`src/content/settings/site.json` → `ga4MeasurementId`, e.g. `G-XXXXXXXXXX`)
+- [ ] `/contact` page contact details list (`src/content/pages/contact.json` → `details[]`) — repeating label/value/href rows; add WhatsApp, swap LinkedIn href, etc. (decoupled from `contacts/*.json`)
 
 **Content**
-- [ ] 1-2 additional short testimonials → add to `src/content/testimonials.json` (homepage shows 3-4, currently 2)
+- [ ] 1-2 additional short testimonials → add to `src/content/testimonials/<slug>.json` (homepage shows 3-4, currently 2)
 - [ ] New London Light case study needs a client testimonial (`pullQuote` in frontmatter)
+- [ ] About page SAS section background image (`src/content/pages/about.json` → `sas.image`, optional `sas.cta`) — uploaded via Sveltia; falls back to flat dark panel if missing
 - [ ] Confirm all case study metrics are still accurate
 - [ ] Permission confirmed from all brands to use logos + quotes publicly
 
 **Brand tokens (`src/styles/global.css`)**
 - Brand purple `#7479e2` and logo SVG are wired in
-- Self-hosted **Maax Raw** (body + bold headlines) and **Maax Mono** (buttons, labels, credits) from 205TF are loaded from `src/assets/fonts/` via `@font-face` at the top of `global.css`. To swap or add weights, drop the new `.woff2` files in and update the declarations there.
+- Self-hosted **Maax Raw** (body, bold headlines, buttons, labels, credits) from 205TF is loaded from `src/assets/fonts/` via `@font-face` at the top of `global.css`. To swap or add weights, drop the new `.woff2` files in and update the declarations there.
 
 ## Performance + a11y
 - No JS framework, no islands → zero JS by default except small vanilla scripts for the mobile nav, cookie banner, and logo marquee

@@ -30,36 +30,6 @@
   font-display: swap;
 }
 
-/* ---- Maax Mono ---- */
-@font-face {
-  font-family: "Maax Mono";
-  src: url("../assets/fonts/Maax Mono - Regular-205TF.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Maax Mono";
-  src: url("../assets/fonts/Maax Mono - Italic-205TF.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Maax Mono";
-  src: url("../assets/fonts/Maax Mono - Bold-205TF.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Maax Mono";
-  src: url("../assets/fonts/Maax Mono - Bold Italic-205TF.woff2") format("woff2");
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
 @theme {
   /* Brand palette */
   --color-brand-purple: #7479e2;
@@ -76,13 +46,11 @@
   --color-hairline-dark: #1f1f22;
 
   /* Typography
-     - Maax Raw Bold → headlines (--font-display, used with font-weight: 700)
+     - Maax Raw Bold → headlines + labels/buttons (--font-display, used with font-weight: 700)
      - Maax Raw Regular → body copy (--font-sans, the default)
-     - Maax Mono → buttons, credits, categorization/labels (--font-mono)
   */
   --font-display: "Maax Raw", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-sans: "Maax Raw", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: "Maax Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Fluid display scale */
   --text-display-xl: clamp(3rem, 6vw + 1rem, 6.5rem);
@@ -169,11 +137,11 @@
   }
 
   .eyebrow {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-size: var(--text-eyebrow);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 700;
     color: var(--color-mute);
   }
 

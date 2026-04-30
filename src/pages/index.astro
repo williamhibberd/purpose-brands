@@ -9,7 +9,7 @@ import NumberedList from '../components/NumberedList.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import CtaBlock from '../components/CtaBlock.astro';
-import { getSettings, getPrimaryContact, bookCallHref } from '../lib/site';
+import { getSettings, bookCallHref } from '../lib/site';
 
 const home = await getEntry('home', 'home');
 if (!home) throw new Error('Missing home content entry');
@@ -17,7 +17,6 @@ const { hero, proofStats, testimonialsSection, whoWeAre, howItWorks, services, c
   home.data;
 
 const settings = await getSettings();
-const primary = await getPrimaryContact();
 const ctaHref = bookCallHref(settings.calendly);
 
 const caseStudies = (await getCollection('case-studies', (c) => c.data.featured)).sort(
@@ -34,17 +33,11 @@ const testimonials = (await getCollection('testimonials', (t) => t.data.featured
   <section class="hero">
     <div class="container-site hero__inner">
       <h1 class="hero__headline">{hero.headline}</h1>
-      <p class="hero__attribution">{hero.attribution}</p>
       <p class="hero__sub">{hero.sub}</p>
       <div class="hero__actions">
         <Button href={ctaHref} variant="primary" size="lg">{hero.primaryCtaLabel}</Button>
         <Button href={hero.secondaryCtaHref} variant="ghost">{hero.secondaryCtaLabel}</Button>
       </div>
-      <p class="hero__contact">
-        <a href={`mailto:${primary.email}`}>{primary.email}</a>
-        <span aria-hidden="true">·</span>
-        <a href={primary.phoneHref}>{primary.phone}</a>
-      </p>
     </div>
   </section>
 
@@ -61,7 +54,6 @@ const testimonials = (await getCollection('testimonials', (t) => t.data.featured
   {/* Client voices */}
   <Section tone="dark">
     <div class="section-head">
-      <p class="eyebrow">{testimonialsSection.eyebrow}</p>
       <h2>{testimonialsSection.heading}</h2>
     </div>
     <div class="testimonial-grid">
@@ -83,7 +75,6 @@ const testimonials = (await getCollection('testimonials', (t) => t.data.featured
         <span class="who-we-are__placeholder" aria-hidden="true">{whoWeAre.photoLabel}</span>
       </div>
       <div class="who-we-are__body">
-        <p class="eyebrow">{whoWeAre.eyebrow}</p>
         <h2>{whoWeAre.heading}</h2>
         {whoWeAre.body.map((p) => <p>{p}</p>)}
         <Button href={whoWeAre.ctaHref} variant="ghost">{whoWeAre.ctaLabel}</Button>
@@ -94,7 +85,6 @@ const testimonials = (await getCollection('testimonials', (t) => t.data.featured
   {/* How it works */}
   <Section tone="dark">
     <div class="section-head">
-      <p class="eyebrow">{howItWorks.eyebrow}</p>
       <h2>{howItWorks.heading}</h2>
     </div>
     <NumberedList items={howItWorks.items} columns={3} />
@@ -103,7 +93,6 @@ const testimonials = (await getCollection('testimonials', (t) => t.data.featured
   {/* What we do */}
   <Section tone="dark">
     <div class="section-head">
-      <p class="eyebrow">{services.eyebrow}</p>
       <h2>{services.heading}</h2>
     </div>
     <NumberedList items={services.items} columns={4} />
@@ -113,7 +102,6 @@ const testimonials = (await getCollection('testimonials', (t) => t.data.featured
   <Section tone="dark">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow">{caseStudiesSection.eyebrow}</p>
         <h2>{caseStudiesSection.heading}</h2>
       </div>
       <Button href={caseStudiesSection.ctaHref} variant="secondary">{caseStudiesSection.ctaLabel}</Button>
@@ -132,7 +120,7 @@ const testimonials = (await getCollection('testimonials', (t) => t.data.featured
 
   {/* Final CTA */}
   <Section tone="dark">
-    <CtaBlock dualCta />
+    <CtaBlock />
   </Section>
 </Base>
 
@@ -145,13 +133,6 @@ const testimonials = (await getCollection('testimonials', (t) => t.data.featured
     max-width: 18ch;
     text-wrap: balance;
     margin: 0 0 1rem;
-  }
-
-  .hero__attribution {
-    font-family: var(--font-mono);
-    font-size: 0.9375rem;
-    color: rgba(250, 250, 247, 0.6);
-    margin: 0 0 2.5rem;
   }
 
   .hero__sub {
@@ -168,19 +149,6 @@ const testimonials = (await getCollection('testimonials', (t) => t.data.featured
     gap: 1rem 2rem;
     align-items: center;
     margin-bottom: 3rem;
-  }
-
-  .hero__contact {
-    font-size: 0.9375rem;
-    color: rgba(250, 250, 247, 0.6);
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin: 0;
-  }
-
-  .hero__contact a:hover {
-    color: var(--color-surface);
   }
 
   .section-head {

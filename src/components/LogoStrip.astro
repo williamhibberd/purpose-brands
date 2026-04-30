@@ -5,14 +5,11 @@ interface Props {
   label?: string;
 }
 
-const { label = 'Trusted by brands who stand for something' } = Astro.props;
-
 const logoEntries = await getClientLogos();
 const logos = [...logoEntries, ...logoEntries];
 ---
 
 <div class="logo-strip">
-  <p class="logo-strip__label eyebrow">{label}</p>
   <div class="logo-strip__track-wrap">
     <ul class="logo-strip__track" aria-label="Client logos">
       {logos.map((logo, i) => (
@@ -32,11 +29,6 @@ const logos = [...logoEntries, ...logoEntries];
 
   :global(.section--dark) .logo-strip {
     border-color: var(--color-hairline-dark);
-  }
-
-  .logo-strip__label {
-    text-align: center;
-    margin: 0 0 2.5rem;
   }
 
   .logo-strip__track-wrap {

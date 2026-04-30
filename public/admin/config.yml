@@ -83,16 +83,8 @@ collections:
                             label: Default subtext,
                             widget: text,
                         }
-                      - {
-                            name: defaultLabel,
-                            label: Default button label,
-                            widget: string,
-                        }
-                      - {
-                            name: dualCtaPrefix,
-                            label: Dual-CTA prefix (e.g. "Call "),
-                            widget: string,
-                        }
+                      - { name: label, label: Button label, widget: string }
+                      - { name: href, label: Button link, widget: string }
 
     # ─────────────────────────────────────────────
     # Footer copy
@@ -151,11 +143,6 @@ collections:
                   widget: object
                   fields:
                       - { name: headline, label: Headline, widget: string }
-                      - {
-                            name: attribution,
-                            label: Attribution,
-                            widget: string,
-                        }
                       - { name: sub, label: Sub-paragraph, widget: text }
                       - {
                             name: primaryCtaLabel,
@@ -182,13 +169,11 @@ collections:
                   label: Testimonials section heading
                   widget: object
                   fields:
-                      - { name: eyebrow, label: Eyebrow, widget: string }
                       - { name: heading, label: Heading, widget: string }
                 - name: whoWeAre
                   label: Who we are
                   widget: object
                   fields:
-                      - { name: eyebrow, label: Eyebrow, widget: string }
                       - { name: heading, label: Heading, widget: string }
                       - {
                             name: photoLabel,
@@ -207,7 +192,6 @@ collections:
                   label: How it works
                   widget: object
                   fields:
-                      - { name: eyebrow, label: Eyebrow, widget: string }
                       - { name: heading, label: Heading, widget: string }
                       - name: items
                         label: Steps
@@ -219,7 +203,6 @@ collections:
                   label: Services
                   widget: object
                   fields:
-                      - { name: eyebrow, label: Eyebrow, widget: string }
                       - { name: heading, label: Heading, widget: string }
                       - name: items
                         label: Services
@@ -231,7 +214,6 @@ collections:
                   label: Case studies block
                   widget: object
                   fields:
-                      - { name: eyebrow, label: Eyebrow, widget: string }
                       - { name: heading, label: Heading, widget: string }
                       - { name: ctaLabel, label: CTA label, widget: string }
                       - { name: ctaHref, label: CTA href, widget: string }
@@ -247,7 +229,6 @@ collections:
                   label: Intro
                   widget: object
                   fields:
-                      - { name: eyebrow, label: Eyebrow, widget: string }
                       - { name: heading, label: Heading, widget: string }
                       - {
                             name: body,
@@ -259,7 +240,6 @@ collections:
                   label: Founder bios
                   widget: list
                   fields:
-                      - { name: eyebrow, label: Eyebrow, widget: string }
                       - { name: name, label: Name, widget: string }
                       - {
                             name: photoLabel,
@@ -294,6 +274,26 @@ collections:
                   widget: object
                   fields:
                       - { name: body, label: Body, widget: text }
+                      - {
+                            name: image,
+                            label: Background image,
+                            widget: image,
+                            required: false,
+                        }
+                      - {
+                            name: imageAlt,
+                            label: Image alt text,
+                            widget: string,
+                            required: false,
+                        }
+                      - name: cta
+                        label: Call to action (optional)
+                        widget: object
+                        required: false
+                        collapsed: true
+                        fields:
+                            - { name: label, label: Button label, widget: string }
+                            - { name: href, label: Button link, widget: string }
 
           - name: work
             label: Work
@@ -306,7 +306,6 @@ collections:
                   label: Page head
                   widget: object
                   fields:
-                      - { name: eyebrow, label: Eyebrow, widget: string }
                       - { name: heading, label: Heading, widget: string }
                       - { name: sub, label: Sub-paragraph, widget: text }
                 - name: cta
@@ -367,14 +366,8 @@ collections:
                   label: Page head
                   widget: object
                   fields:
-                      - { name: eyebrow, label: Eyebrow, widget: string }
                       - { name: heading, label: Heading, widget: string }
                       - { name: sub, label: Sub-paragraph, widget: text }
-                - {
-                      name: calendlyLabel,
-                      label: Calendly section eyebrow,
-                      widget: string,
-                  }
                 - name: calendly
                   label: Calendly placeholder
                   widget: object
@@ -448,20 +441,12 @@ collections:
                         }
                 - name: details
                   label: Contact details
-                  widget: object
+                  widget: list
+                  hint: Each row renders as a labelled link (email, phone, LinkedIn, WhatsApp, etc.). Use mailto:, tel:, https://, or wa.me/ in the href.
                   fields:
-                      - { name: emailLabel, label: Email label, widget: string }
-                      - { name: phoneLabel, label: Phone label, widget: string }
-                      - {
-                            name: linkedinLabel,
-                            label: LinkedIn label,
-                            widget: string,
-                        }
-                      - {
-                            name: linkedinText,
-                            label: LinkedIn link text,
-                            widget: string,
-                        }
+                      - { name: label, label: Label, widget: string }
+                      - { name: value, label: Display text, widget: string }
+                      - { name: href, label: Link href, widget: string }
 
           - name: notFound
             label: 404 page

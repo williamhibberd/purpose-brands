@@ -44,30 +44,29 @@ const testimonials = defineCollection({
 });
 
 const numberedItem = z.object({ title: z.string(), body: z.string() });
-const sectionHead = z.object({ eyebrow: z.string(), heading: z.string() });
+const headingOnly = z.object({ heading: z.string() });
 
 const home = defineCollection({
   loader: glob({ pattern: 'home.json', base: './src/content/pages' }),
   schema: z.object({
     hero: z.object({
       headline: z.string(),
-      attribution: z.string(),
       sub: z.string(),
       primaryCtaLabel: z.string(),
       secondaryCtaLabel: z.string(),
       secondaryCtaHref: z.string(),
     }),
     proofStats: z.array(z.object({ value: z.string(), label: z.string() })),
-    testimonialsSection: sectionHead,
-    whoWeAre: sectionHead.extend({
+    testimonialsSection: headingOnly,
+    whoWeAre: headingOnly.extend({
       photoLabel: z.string(),
       body: z.array(z.string()),
       ctaLabel: z.string(),
       ctaHref: z.string(),
     }),
-    howItWorks: sectionHead.extend({ items: z.array(numberedItem) }),
-    services: sectionHead.extend({ items: z.array(numberedItem) }),
-    caseStudies: sectionHead.extend({
+    howItWorks: headingOnly.extend({ items: z.array(numberedItem) }),
+    services: headingOnly.extend({ items: z.array(numberedItem) }),
+    caseStudies: headingOnly.extend({
       ctaLabel: z.string(),
       ctaHref: z.string(),
     }),
@@ -76,23 +75,28 @@ const home = defineCollection({
 
 const about = defineCollection({
   loader: glob({ pattern: 'about.json', base: './src/content/pages' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    intro: sectionHead.extend({ body: z.array(z.string()) }),
-    bios: z.array(
-      z.object({
-        eyebrow: z.string(),
-        name: z.string(),
-        photoLabel: z.string(),
-        lede: z.string(),
-        body: z.array(z.string()),
-        trustList: z.array(z.string()),
-        reverse: z.boolean().default(false),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      intro: headingOnly.extend({ body: z.array(z.string()) }),
+      bios: z.array(
+        z.object({
+          name: z.string(),
+          photoLabel: z.string(),
+          lede: z.string(),
+          body: z.array(z.string()),
+          trustList: z.array(z.string()),
+          reverse: z.boolean().default(false),
+        }),
+      ),
+      sas: z.object({
+        body: z.string(),
+        image: image().optional(),
+        imageAlt: z.string().optional(),
+        cta: z.object({ label: z.string(), href: z.string() }).optional(),
       }),
-    ),
-    sas: z.object({ body: z.string() }),
-  }),
+    }),
 });
 
 const work = defineCollection({
@@ -100,7 +104,7 @@ const work = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    head: sectionHead.extend({ sub: z.string() }),
+    head: headingOnly.extend({ sub: z.string() }),
     cta: z.object({ headline: z.string(), subtext: z.string() }),
     labels: z.object({
       challenge: z.string(),
@@ -120,8 +124,7 @@ const contact = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    head: sectionHead.extend({ sub: z.string() }),
-    calendlyLabel: z.string(),
+    head: headingOnly.extend({ sub: z.string() }),
     calendly: z.object({
       iframeTitle: z.string(),
       placeholderHeading: z.string(),
@@ -142,12 +145,13 @@ const contact = defineCollection({
       ),
       submitLabel: z.string(),
     }),
-    details: z.object({
-      emailLabel: z.string(),
-      phoneLabel: z.string(),
-      linkedinLabel: z.string(),
-      linkedinText: z.string(),
-    }),
+    details: z.array(
+      z.object({
+        label: z.string(),
+        value: z.string(),
+        href: z.string(),
+      }),
+    ),
   }),
 });
 
@@ -181,8 +185,8 @@ const settings = defineCollection({
     cta: z.object({
       defaultHeadline: z.string(),
       defaultSubtext: z.string(),
-      defaultLabel: z.string(),
-      dualCtaPrefix: z.string(),
+      label: z.string(),
+      href: z.string(),
     }),
   }),
 });

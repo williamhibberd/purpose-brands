@@ -37,15 +37,17 @@ Single record. Edit values, keep keys.
 | `calendly`         | Calendly embed URL. When empty, all "Let's talk" CTAs route to `/contact`; when set, they go straight to Calendly. |
 | `linkedin`         | LinkedIn URL used in footer + contact page                                                                         |
 | `cookies`          | Cookie banner copy: `body`, `declineLabel`, `allowLabel`                                                           |
-| `cta`              | Defaults for the bottom-of-page CTA block: `defaultHeadline`, `defaultSubtext`, `defaultLabel`, `dualCtaPrefix` (e.g. `"Call "` → "Call Phoebe") |
+| `cta`              | Defaults for the bottom-of-page CTA block: `defaultHeadline`, `defaultSubtext`, `label` (button text), `href` (where the button goes — e.g. `/contact` or a Calendly URL) |
 
 ### `contacts/` — Phoebe + Biraj contact records
 
-One file per contact: `phoebe.json` and `biraj.json`. `phoebe` is the primary contact (used in footer, homepage hero, contact page). `biraj` is used in the homepage dual-CTA "Call Biraj" button. The filename becomes the contact's id; don't rename.
+One file per contact: `phoebe.json` and `biraj.json`. `phoebe` is the primary contact (used in the footer). `biraj` is reserved for future use. The filename becomes the contact's id; don't rename.
+
+The `/contact` page contact list is **not** driven from these files — it lives in `pages/contact.json` → `details[]` (see below). If you change a phone number here, also update it there.
 
 | Field       | Notes                                                         |
 | ----------- | ------------------------------------------------------------- |
-| `name`      | First name only (shown in "Call Phoebe" / "Call Biraj" CTAs)  |
+| `name`      | First name                                                    |
 | `primary`   | Don't change — `true` for Phoebe, `false` for Biraj           |
 | `email`     | Email address (used as `mailto:` link)                        |
 | `phone`     | Display version with formatting (e.g. `+44 (0) 7525 836 824`) |
@@ -82,38 +84,41 @@ Each file is one page. Structure mirrors the page sections.
 
 ### `pages/home.json`
 
-- `hero` — headline (the big quote), attribution, sub-paragraph, CTA labels
+- `hero` — headline, sub-paragraph, CTA labels + href
 - `proofStats` — three big stats above the logo strip (value + label)
-- `testimonialsSection` — eyebrow + heading above the testimonial cards
-- `whoWeAre` — the "We're Phoebe and Biraj" section (eyebrow, heading, body paragraphs, CTA)
-- `howItWorks` — the three-step block (eyebrow, heading, items)
-- `services` — the four-service block (eyebrow, heading, items)
-- `caseStudies` — eyebrow + heading + "All case studies →" CTA above the case study grid
+- `testimonialsSection` — heading above the testimonial cards
+- `whoWeAre` — the "We're Phoebe and Biraj" section (heading, body paragraphs, CTA)
+- `howItWorks` — the three-step block (heading + items)
+- `services` — the four-service block (heading + items)
+- `caseStudies` — heading + "All case studies →" CTA above the case study grid
 
 ### `pages/about.json`
 
 - `title` / `description` — used in `<title>` and meta description
-- `intro` — eyebrow, heading, body paragraphs
-- `bios` — list of founder bios. Each has `eyebrow`, `name`, `photoLabel`, `lede` (big intro line), `body` (paragraphs), `trustList` (brand pills), `reverse` (set `true` to flip image to the right)
-- `sas` — SAS Ocean Network paragraph
+- `intro` — heading + body paragraphs
+- `bios` — list of founder bios. Each has `name`, `photoLabel`, `lede` (big intro line), `body` (paragraphs), `trustList` (brand pills), `reverse` (set `true` to flip image to the right)
+- `sas` — full-bleed image-overlay block:
+  - `body` — the SAS Ocean Network paragraph (overlaid on the image)
+  - `image` — background image (upload via the CMS; falls back to a flat dark panel if missing)
+  - `imageAlt` — alt text for the background image
+  - `cta` — optional `{ label, href }` for a button below the body
 
 ### `pages/work.json`
 
 - `title` / `description` — meta
-- `head` — eyebrow, heading, sub-paragraph
+- `head` — heading + sub-paragraph
 - `cta` — bottom-of-page CTA headline + subtext
 - `labels` — text used across the case study cards and detail pages:
   - `challenge` / `whatWeDid` / `results` — section headings on `/work` cards
   - `situation` — heading on individual case study pages (replaces `challenge` heading there)
   - `readMore` — "Read full case study →" link label
   - `backLink` — "← All work" link on a case study detail page
-  - `pagerPrev` / `pagerNext` — eyebrow labels for the prev/next pager
+  - `pagerPrev` / `pagerNext` — labels for the prev/next pager
 
 ### `pages/contact.json`
 
 - `title` / `description` — meta
 - `head` — page heading + sub-paragraph
-- `calendlyLabel` — eyebrow above the Calendly embed
 - `calendly` — Calendly iframe + placeholder copy:
   - `iframeTitle` — accessible title for the embedded iframe
   - `placeholderHeading` — bold line shown when no Calendly URL is set
@@ -121,7 +126,11 @@ Each file is one page. Structure mirrors the page sections.
 - `form.fields` — form field list. **Don't change `id` values** — they map to Netlify form submissions
 - `form.submitLabel` — submit button text
 - `form.honeypotLabel` — anti-spam label, hidden from view
-- `details` — labels for the email / phone / LinkedIn list
+- `details` — repeating list of contact rows shown on `/contact`. Each row is `{ label, value, href }`:
+  - `label` — small uppercase label (e.g. "Email", "Phone", "WhatsApp")
+  - `value` — the visible text (e.g. the email address, the formatted phone number, "Connect on LinkedIn")
+  - `href` — the link destination (`mailto:…`, `tel:…`, `https://wa.me/…`, `https://linkedin.com/…`)
+  - Add or remove rows freely — the page renders one `<li>` per entry. Values are stored here, not pulled from `contacts/*.json`.
 
 ### `pages/not-found.json`
 

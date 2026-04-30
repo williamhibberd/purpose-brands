@@ -2,11 +2,9 @@
   "title": "Contact",
   "description": "Book a free 20 minute call with Purpose Brands and we'll have an honest conversation about whether Amazon is the right move for your brand.",
   "head": {
-    "eyebrow": "Contact",
     "heading": "Fancy a chat?",
     "sub": "20 minutes. We'll tell you honestly whether Amazon's right for your brand, and if we're the right team to help."
   },
-  "calendlyLabel": "Book a time",
   "calendly": {
     "iframeTitle": "Book a call with Purpose Brands",
     "placeholderHeading": "Calendly embed coming soon.",
@@ -47,10 +45,21 @@
     ],
     "submitLabel": "Send message"
   },
-  "details": {
-    "emailLabel": "Email",
-    "phoneLabel": "Phone",
-    "linkedinLabel": "LinkedIn",
-    "linkedinText": "Connect on LinkedIn"
-  }
+  "details": [
+    {
+      "label": "Email",
+      "value": "phoebe@wearepurposebrands.com",
+      "href": "mailto:phoebe@wearepurposebrands.com"
+    },
+    {
+      "label": "Phone",
+      "value": "+44 (0) 7525 836 824",
+      "href": "tel:+447525836824"
+    },
+    {
+      "label": "LinkedIn",
+      "value": "Connect on LinkedIn",
+      "href": "#"
+    }
+  ]
 }

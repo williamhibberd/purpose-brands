@@ -14,7 +14,7 @@
   "cta": {
     "defaultHeadline": "Your brand's too good for a bad Amazon page.",
     "defaultSubtext": "Book a free call with us. No pressure, no pitch, just a conversation about whether we're right for you.",
-    "defaultLabel": "Let's talk",
-    "dualCtaPrefix": "Call"
+    "label": "Let's talk",
+    "href": "/contact"
   }
 }

@@ -3,20 +3,14 @@ import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import CalendlyEmbed from '../components/CalendlyEmbed.astro';
-import { getSettings, getPrimaryContact } from '../lib/site';
-
 const contactPage = await getEntry('contact', 'contact');
 if (!contactPage) throw new Error('Missing contact content entry');
-const { title, description, head, calendlyLabel, form, details } = contactPage.data;
-
-const settings = await getSettings();
-const primary = await getPrimaryContact();
+const { title, description, head, form, details } = contactPage.data;
 ---
 
 <Base surface="dark" title={title} description={description}>
   <Section tone="dark">
     <div class="contact-head">
-      <p class="eyebrow">{head.eyebrow}</p>
       <h1>{head.heading}</h1>
       <p class="contact-head__sub">{head.sub}</p>
     </div>
@@ -24,7 +18,6 @@ const primary = await getPrimaryContact();
     <div class="contact-grid">
       {/* Left: Calendly */}
       <div class="contact-col">
-        <p class="eyebrow contact-calendly-label">{calendlyLabel}</p>
         <CalendlyEmbed />
       </div>
 
@@ -67,20 +60,13 @@ const primary = await getPrimaryContact();
 
           <button type="submit" class="contact-form__submit">{form.submitLabel}</button>
         </form>
-
         <ul class="contact-details" aria-label="Contact details">
-          <li>
-            <span class="eyebrow">{details.emailLabel}</span>
-            <a href={`mailto:${primary.email}`}>{primary.email}</a>
-          </li>
-          <li>
-            <span class="eyebrow">{details.phoneLabel}</span>
-            <a href={primary.phoneHref}>{primary.phone}</a>
-          </li>
-          <li>
-            <span class="eyebrow">{details.linkedinLabel}</span>
-            <a href={settings.linkedin} rel="me noopener">{details.linkedinText}</a>
-          </li>
+          {details.map((item) => (
+            <li>
+              <span class="eyebrow">{item.label}</span>
+              <a href={item.href}>{item.value}</a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
@@ -160,11 +146,11 @@ const primary = await getPrimaryContact();
   }
 
   .contact-form__field label {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 700;
     color: rgba(250, 250, 247, 0.6);
   }
 
@@ -205,9 +191,9 @@ const primary = await getPrimaryContact();
     border: none;
     padding: 1rem 2rem;
     border-radius: 999px;
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-size: 0.9375rem;
-    font-weight: 400;
+    font-weight: 700;
     letter-spacing: 0.01em;
     cursor: pointer;
     transition: background 140ms ease, transform 200ms ease;
@@ -218,7 +204,4 @@ const primary = await getPrimaryContact();
     transform: translateY(-1px);
   }
 
-  .contact-calendly-label {
-    margin: 0 0 1rem;
-  }
 </style>
