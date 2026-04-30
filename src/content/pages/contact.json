@@ -1,10 +1,10 @@
 {
   "title": "Contact",
-  "description": "Book a free 30-minute call with Purpose Brands and we'll have an honest conversation about whether Amazon is the right move for your brand.",
+  "description": "Book a free 20 minute call with Purpose Brands and we'll have an honest conversation about whether Amazon is the right move for your brand.",
   "head": {
     "eyebrow": "Contact",
     "heading": "Fancy a chat?",
-    "sub": "30 minutes. We'll tell you honestly whether Amazon's right for your brand, and if we're the right team to help."
+    "sub": "20 minutes. We'll tell you honestly whether Amazon's right for your brand, and if we're the right team to help."
   },
   "calendlyLabel": "Book a time",
   "calendly": {
@@ -15,10 +15,35 @@
   "form": {
     "honeypotLabel": "Don't fill this out if you're human:",
     "fields": [
-      { "id": "name", "label": "Name", "type": "text", "autocomplete": "name", "required": true },
-      { "id": "email", "label": "Email", "type": "email", "autocomplete": "email", "required": true },
-      { "id": "brand", "label": "Brand name", "optionalLabel": "(optional)", "type": "text", "autocomplete": "organization" },
-      { "id": "message", "label": "Message", "type": "textarea", "rows": 5, "required": true }
+      {
+        "id": "name",
+        "label": "Name",
+        "optionalLabel": "",
+        "type": "text",
+        "autocomplete": "name",
+        "required": true
+      },
+      {
+        "id": "email",
+        "label": "Email",
+        "type": "email",
+        "autocomplete": "email",
+        "required": true
+      },
+      {
+        "id": "brand",
+        "label": "Brand name",
+        "optionalLabel": "(optional)",
+        "type": "text",
+        "autocomplete": "organization"
+      },
+      {
+        "id": "message",
+        "label": "Message",
+        "type": "textarea",
+        "rows": 5,
+        "required": true
+      }
     ],
     "submitLabel": "Send message"
   },
